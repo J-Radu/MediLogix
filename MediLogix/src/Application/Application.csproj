@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <AssemblyName>MediLogix.Application</AssemblyName>
+        <RootNamespace>MediLogix.Application</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Folder Include="Commands\" />
+      <Folder Include="Common\" />
+      <Folder Include="DTOs\" />
+      <Folder Include="Handlers\" />
+      <Folder Include="Queries\" />
+      <Folder Include="Validators\" />
+    </ItemGroup>
+
+</Project>
