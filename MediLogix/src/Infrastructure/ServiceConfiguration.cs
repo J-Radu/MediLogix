@@ -1,6 +1,9 @@
 ﻿namespace MediLogix.Infrastructure;
 
-public class ServiceConfiguration
+public static class ServiceConfiguration
 {
-    
+    public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
+    {
+        return services;
+    }
 }

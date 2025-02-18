@@ -2,5 +2,5 @@
 
 public interface IMediLogixDbContext
 {
-    
+    Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }
