@@ -1,10 +1,9 @@
-﻿namespace MediLogix.Domain.Entities;
+﻿namespace MediLogix.Application.DTOs;
 
-public class CurrentLocation : EntityBase
+public class CurrentLocationDto
 {
     public string IMS { get; set; }
     public string Department { get; set; }
     public string Localization { get; set; }
     public string Status { get; set; }
-    public virtual Device? Device { get; set; }
 }

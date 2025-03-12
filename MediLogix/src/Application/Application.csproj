@@ -9,11 +9,29 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Commands\" />
+      <Folder Include="Commands\Activity\" />
+      <Folder Include="Commands\CurrentLocation\" />
+      <Folder Include="Commands\Description\" />
+      <Folder Include="Commands\Employee\" />
+      <Folder Include="Commands\FinancialInfo\" />
+      <Folder Include="Commands\Model\" />
+      <Folder Include="Commands\OperatingTerms\" />
+      <Folder Include="Commands\PeriodicVerification\" />
+      <Folder Include="Commands\Piece\" />
+      <Folder Include="Commands\WarrantyAndMaintenance\" />
       <Folder Include="Common\" />
-      <Folder Include="DTOs\" />
-      <Folder Include="Handlers\" />
-      <Folder Include="Queries\" />
+      <Folder Include="Handlers\Commands\Activity\" />
+      <Folder Include="Handlers\Commands\CurrentLocation\" />
+      <Folder Include="Handlers\Commands\Description\" />
+      <Folder Include="Handlers\Commands\Employee\" />
+      <Folder Include="Handlers\Commands\FinancialInfo\" />
+      <Folder Include="Handlers\Commands\Model\" />
+      <Folder Include="Handlers\Commands\OperatingTerms\" />
+      <Folder Include="Handlers\Commands\PeriodicVerification\" />
+      <Folder Include="Handlers\Commands\Piece\" />
+      <Folder Include="Handlers\Commands\WarrantyAndMaintenance\" />
+      <Folder Include="Queries\Activity\" />
+      <Folder Include="Queries\Employee\" />
       <Folder Include="Validators\" />
     </ItemGroup>
 
@@ -30,6 +48,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Domain\Domain.csproj" />
+      <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>
