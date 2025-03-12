@@ -11,6 +11,6 @@ public class Employee : EntityBase
     public int Age { get; set; }
     public string JobName { get; set; }
     public Guid UserId { get; set; }
-    public virtual ICollection<Device> Devices { get; set; }
-    public virtual ICollection<Activity> Activities { get; set; }
+    public virtual ICollection<Device>? Devices { get; set; }
+    public virtual ICollection<Activity>? Activities { get; set; }
 }
