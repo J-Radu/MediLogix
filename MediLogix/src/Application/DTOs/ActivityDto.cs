@@ -1,4 +1,4 @@
-﻿namespace MediLogix.Application.Queries.Activity;
+﻿namespace MediLogix.Application.DTOs;
 
 public class ActivityDto : EntityBase
 {

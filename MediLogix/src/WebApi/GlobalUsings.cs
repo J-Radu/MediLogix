@@ -1,3 +1,10 @@
 ﻿global using MediLogix.Infrastructure.Persistence.Database;
 global using Microsoft.EntityFrameworkCore;
 global using MediLogix.Application;
+global using MediatR;
+global using MediLogix.Application.DTOs;
+global using MediLogix.Application.Queries.Device;
+global using MediLogix.Application.Queries.Others.GetById;
+global using Microsoft.AspNetCore.Mvc;
+global using MediLogix.Application.Queries.Activity;
+global using MediLogix.Application.Queries.Employee;

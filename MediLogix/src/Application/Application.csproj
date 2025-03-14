@@ -30,8 +30,7 @@
       <Folder Include="Handlers\Commands\PeriodicVerification\" />
       <Folder Include="Handlers\Commands\Piece\" />
       <Folder Include="Handlers\Commands\WarrantyAndMaintenance\" />
-      <Folder Include="Queries\Activity\" />
-      <Folder Include="Queries\Employee\" />
+      <Folder Include="Queries\Others\GetById\" />
       <Folder Include="Validators\" />
     </ItemGroup>
 
