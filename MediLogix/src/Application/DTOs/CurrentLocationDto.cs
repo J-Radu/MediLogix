@@ -1,6 +1,6 @@
 ﻿namespace MediLogix.Application.DTOs;
 
-public class CurrentLocationDto
+public class CurrentLocationDto : EntityBase
 {
     public string IMS { get; set; }
     public string Department { get; set; }
