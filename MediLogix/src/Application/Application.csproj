@@ -10,6 +10,7 @@
 
     <ItemGroup>
       <Folder Include="Commands\Activity\" />
+      <Folder Include="Commands\Auth\" />
       <Folder Include="Commands\CurrentLocation\" />
       <Folder Include="Commands\Description\" />
       <Folder Include="Commands\Employee\" />
@@ -21,6 +22,7 @@
       <Folder Include="Commands\WarrantyAndMaintenance\" />
       <Folder Include="Common\" />
       <Folder Include="Handlers\Commands\Activity\" />
+      <Folder Include="Handlers\Commands\Auth\" />
       <Folder Include="Handlers\Commands\CurrentLocation\" />
       <Folder Include="Handlers\Commands\Description\" />
       <Folder Include="Handlers\Commands\Employee\" />
@@ -31,6 +33,7 @@
       <Folder Include="Handlers\Commands\Piece\" />
       <Folder Include="Handlers\Commands\WarrantyAndMaintenance\" />
       <Folder Include="Queries\Others\GetById\" />
+      <Folder Include="Services\" />
       <Folder Include="Validators\" />
     </ItemGroup>
 
