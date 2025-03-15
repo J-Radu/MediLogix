@@ -11,6 +11,11 @@ global using MediLogix.Application.Queries.Activity;
 global using MediLogix.Application.Queries.Employee;
 global using MediLogix.Application.Queries.Others.GetAll;
 global using MediLogix.Application.Queries.Others.GetById;
+global using MediLogix.Application.Commands.Auth;
+global using Microsoft.AspNetCore.Identity;
+global using MediLogix.Application.DTOs.Auth;
+global using System.Security.Claims;
+
 
 
 
