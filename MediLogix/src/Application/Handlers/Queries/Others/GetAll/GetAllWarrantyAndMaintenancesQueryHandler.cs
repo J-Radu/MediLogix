@@ -1,10 +1,11 @@
 namespace MediLogix.Application.Handlers.Queries.Others.GetAll;
 
-public class GetAllWarrantyAndMaintenancesQueryHandler(IMediLogixDbContext context)
+public class GetAllWarrantyAndMaintenancesQueryHandler(IDbContextFactory<MediLogixDbContext> contextFactory)
     : IRequestHandler<GetAllWarrantyAndMaintenancesQuery, List<WarrantyAndMaintenanceDto>>
 {
     public async Task<List<WarrantyAndMaintenanceDto>> Handle(GetAllWarrantyAndMaintenancesQuery request, CancellationToken cancellationToken)
     {
+        var context = await contextFactory.CreateDbContextAsync(cancellationToken);
         var warrantyAndMaintenances = await context.WarrantyAndMaintenances
             .AsNoTracking()
             .ToListAsync(cancellationToken);

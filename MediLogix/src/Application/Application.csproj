@@ -11,15 +11,8 @@
     <ItemGroup>
       <Folder Include="Commands\Activity\" />
       <Folder Include="Commands\Auth\" />
-      <Folder Include="Commands\CurrentLocation\" />
-      <Folder Include="Commands\Description\" />
       <Folder Include="Commands\Employee\" />
-      <Folder Include="Commands\FinancialInfo\" />
-      <Folder Include="Commands\Model\" />
-      <Folder Include="Commands\OperatingTerms\" />
-      <Folder Include="Commands\PeriodicVerification\" />
-      <Folder Include="Commands\Piece\" />
-      <Folder Include="Commands\WarrantyAndMaintenance\" />
+      <Folder Include="Commands\Others\" />
       <Folder Include="Common\" />
       <Folder Include="Handlers\Commands\Activity\" />
       <Folder Include="Handlers\Commands\Auth\" />
@@ -32,7 +25,6 @@
       <Folder Include="Handlers\Commands\PeriodicVerification\" />
       <Folder Include="Handlers\Commands\Piece\" />
       <Folder Include="Handlers\Commands\WarrantyAndMaintenance\" />
-      <Folder Include="Queries\Others\GetById\" />
       <Folder Include="Services\" />
       <Folder Include="Validators\" />
     </ItemGroup>
@@ -41,8 +33,8 @@
       <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
       <PackageReference Include="FluentValidation" Version="11.11.0" />
       <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.11.0" />
-      <PackageReference Include="Mapster" Version="7.3.0" />
-      <PackageReference Include="MediatR" Version="12.4.0" />
+      <PackageReference Include="Mapster" Version="7.4.2-pre02" />
+      <PackageReference Include="MediatR" Version="12.4.1" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.13" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
       <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.1" />

@@ -1,10 +1,11 @@
 namespace MediLogix.Application.Handlers.Queries.Others.GetAll;
 
-public class GetAllPiecesQueryHandler(IMediLogixDbContext context)
+public class GetAllPiecesQueryHandler(IDbContextFactory<MediLogixDbContext> contextFactory)
     : IRequestHandler<GetAllPiecesQuery, List<PieceDto>>
 {
     public async Task<List<PieceDto>> Handle(GetAllPiecesQuery request, CancellationToken cancellationToken)
     {
+        var context = await contextFactory.CreateDbContextAsync(cancellationToken);
         var pieces = await context.Pieces
             .AsNoTracking()
             .ToListAsync(cancellationToken);

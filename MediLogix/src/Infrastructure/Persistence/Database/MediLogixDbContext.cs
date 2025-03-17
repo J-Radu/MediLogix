@@ -12,6 +12,7 @@ public sealed class MediLogixDbContext : IdentityDbContext, IMediLogixDbContext
     public DbSet<CurrentLocation> CurrentLocations { get; set; }
     public DbSet<Description> Descriptions { get; set; }
     public DbSet<Device> Devices { get; set; }
+    public DbSet<Failure> Failures { get; set; }
     public DbSet<Employee> Employees { get; set; }
     public DbSet<FinancialInfo> FinancialInfos { get; set; }
     public DbSet<Model> Models { get; set; }
@@ -19,6 +20,7 @@ public sealed class MediLogixDbContext : IdentityDbContext, IMediLogixDbContext
     public DbSet<PeriodicVerification> PeriodicVerifications { get; set; }
     public DbSet<Piece> Pieces { get; set; }
     public DbSet<WarrantyAndMaintenance> WarrantyAndMaintenances { get; set; }
+    public DbSet<MetrologyReport> MetrologyReports { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

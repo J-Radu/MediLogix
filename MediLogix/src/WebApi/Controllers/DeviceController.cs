@@ -156,4 +156,54 @@ public class DeviceController(IMediator mediator) : ControllerBase
         return Ok(result);
     }
     #endregion
+
+    #region MetrologyReport Endpoints
+    [HttpGet("metrology-report")]
+    [ProducesResponseType(typeof(List<MetrologyReportDto>), StatusCodes.Status200OK)]
+    public async Task<ActionResult<List<MetrologyReportDto>>> GetAllMetrologyReports()
+    {
+        var query = new GetAllMetrologyReportsQuery();
+        var result = await mediator.Send(query);
+        return Ok(result);
+    }
+    
+    [HttpGet("metrology-report/{id:guid}")]
+    [ProducesResponseType(typeof(MetrologyReportDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<MetrologyReportDto>> GetMetrologyReportById(Guid id)
+    {
+        var query = new GetMetrologyReportByIdQuery { Id = id };
+        var result = await mediator.Send(query);
+        
+        if (result == null)
+            return NotFound();
+            
+        return Ok(result);
+    }
+    #endregion
+
+    #region Failure Endpoints
+    [HttpGet("failure")]
+    [ProducesResponseType(typeof(List<FailureDto>), StatusCodes.Status200OK)]
+    public async Task<ActionResult<List<FailureDto>>> GetAllFailures()
+    {
+        var query = new GetAllFailuresQuery();
+        var result = await mediator.Send(query);
+        return Ok(result);
+    }
+    
+    [HttpGet("failure/{id:guid}")]
+    [ProducesResponseType(typeof(FailureDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<FailureDto>> GetFailureById(Guid id)
+    {
+        var query = new GetFailureByIdQuery { Id = id };
+        var result = await mediator.Send(query);
+        
+        if (result == null)
+            return NotFound();
+            
+        return Ok(result);
+    }
+    #endregion
 } 

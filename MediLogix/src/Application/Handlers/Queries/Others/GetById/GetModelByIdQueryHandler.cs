@@ -1,10 +1,11 @@
 namespace MediLogix.Application.Handlers.Queries.Others.GetById;
 
-public class GetModelByIdQueryHandler(IMediLogixDbContext context)
+public class GetModelByIdQueryHandler(IDbContextFactory<MediLogixDbContext> contextFactory)
     : IRequestHandler<GetModelByIdQuery, ModelDto>
 {
     public async Task<ModelDto> Handle(GetModelByIdQuery request, CancellationToken cancellationToken)
     {
+        var context = await contextFactory.CreateDbContextAsync(cancellationToken);
         var model = await context.Models
             .AsNoTracking()
             .FirstOrDefaultAsync(m => m.Id == request.Id, cancellationToken);

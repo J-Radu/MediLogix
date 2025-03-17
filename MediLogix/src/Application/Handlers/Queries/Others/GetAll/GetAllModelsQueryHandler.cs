@@ -1,10 +1,11 @@
 namespace MediLogix.Application.Handlers.Queries.Others.GetAll;
 
-public class GetAllModelsQueryHandler(IMediLogixDbContext context)
+public class GetAllModelsQueryHandler(IDbContextFactory<MediLogixDbContext> contextFactory)
     : IRequestHandler<GetAllModelsQuery, List<ModelDto>>
 {
     public async Task<List<ModelDto>> Handle(GetAllModelsQuery request, CancellationToken cancellationToken)
     {
+        var context = await contextFactory.CreateDbContextAsync(cancellationToken);
         var models = await context.Models
             .AsNoTracking()
             .ToListAsync(cancellationToken);

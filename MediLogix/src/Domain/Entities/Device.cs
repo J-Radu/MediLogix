@@ -10,6 +10,7 @@ public class Device : EntityBase
     public Guid OperatingTermsId { get; set; }
     public Guid FinancialInfoId { get; set; }
     public Guid CurrentLocationId { get; set; }
+    public Guid FailureId { get; set; }
     public virtual Employee? Employee { get; set; }
     public virtual Description? Description { get; set; }
     public virtual Model? Model { get; set; }
@@ -18,5 +19,7 @@ public class Device : EntityBase
     public virtual OperatingTerms? OperatingTerms { get; set; }
     public virtual FinancialInfo? FinancialInfo { get; set; }
     public virtual CurrentLocation? CurrentLocation { get; set; }
+    public virtual ICollection<Failure>? Failures { get; set; }
     public virtual ICollection<Piece>? Pieces { get; set; }
+    public virtual ICollection<MetrologyReport> MetrologyReports { get; set; }
 }

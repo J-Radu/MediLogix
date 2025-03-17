@@ -1,10 +1,11 @@
 namespace MediLogix.Application.Handlers.Queries.Device;
 
-public class GetDeviceByIdQueryHandler(IMediLogixDbContext context)
+public class GetDeviceByIdQueryHandler(IDbContextFactory<MediLogixDbContext> contextFactory)
     : IRequestHandler<GetDeviceByIdQuery, DeviceDto>
 {
     public async Task<DeviceDto> Handle(GetDeviceByIdQuery request, CancellationToken cancellationToken)
     {
+        var context = await contextFactory.CreateDbContextAsync(cancellationToken);
         var device = await context.Devices
             .Include(d => d.Model)
             .Include(d => d.Description)
@@ -14,6 +15,8 @@ public class GetDeviceByIdQueryHandler(IMediLogixDbContext context)
             .Include(d => d.PeriodicVerification)
             .Include(d => d.CurrentLocation)
             .Include(d => d.Pieces)
+            .Include(d => d.Failures)
+            .Include(d => d.MetrologyReports)
             .AsNoTracking()
             .FirstOrDefaultAsync(d => d.Id == request.Id, cancellationToken);
 
@@ -77,7 +80,26 @@ public class GetDeviceByIdQueryHandler(IMediLogixDbContext context)
                 Name = p.Name,
                 Price = p.Price,
                 AcquisitionDate = p.AcquisitionDate
-            }).ToList() ?? new List<PieceDto>()
+            }).ToList() ?? new List<PieceDto>(),
+
+            // Failure
+            FailureType = device.Failures?.FirstOrDefault()?.FailureType,
+            FailureDescription = device.Failures?.FirstOrDefault()?.FailureDescription,
+            
+            // MetrologyReport
+            DeviceId = device.Id,
+            ReportNumber = device.MetrologyReports?.FirstOrDefault()?.ReportNumber,
+            ReportIssueDate = device.MetrologyReports?.FirstOrDefault()?.IssueDate ?? default,
+            ReportExpirationDate = device.MetrologyReports?.FirstOrDefault()?.ExpirationDate ?? default,
+            IssuingAuthority = device.MetrologyReports?.FirstOrDefault()?.IssuingAuthority,
+            Findings = device.MetrologyReports?.FirstOrDefault()?.Findings,
+            Recommendations = device.MetrologyReports?.FirstOrDefault()?.Recommendations,
+            IsApproved = device.MetrologyReports?.FirstOrDefault()?.IsApproved ?? false,
+            DocumentName = device.MetrologyReports?.FirstOrDefault()?.DocumentName,
+            DocumentType = device.MetrologyReports?.FirstOrDefault()?.DocumentType,
+            DocumentData = device.MetrologyReports?.FirstOrDefault()?.DocumentData,
+            DocumentSize = device.MetrologyReports?.FirstOrDefault()?.DocumentSize ?? 0,
+            UploadDate = device.MetrologyReports?.FirstOrDefault()?.UploadDate ?? default
         };
     }
 } 

@@ -1,10 +1,11 @@
 namespace MediLogix.Application.Handlers.Queries.Others.GetAll;
 
-public class GetAllCurrentLocationsQueryHandler(IMediLogixDbContext context)
+public class GetAllCurrentLocationsQueryHandler(IDbContextFactory<MediLogixDbContext> contextFactory)
     : IRequestHandler<GetAllCurrentLocationsQuery, List<CurrentLocationDto>>
 {
     public async Task<List<CurrentLocationDto>> Handle(GetAllCurrentLocationsQuery request, CancellationToken cancellationToken)
     {
+        var context = await contextFactory.CreateDbContextAsync(cancellationToken);
         var currentLocations = await context.CurrentLocations
             .AsNoTracking()
             .ToListAsync(cancellationToken);

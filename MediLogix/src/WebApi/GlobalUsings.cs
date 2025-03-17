@@ -18,3 +18,5 @@ global using Microsoft.IdentityModel.Tokens;
 global using Microsoft.AspNetCore.Authorization;
 global using MediLogix.Application.Commands.Auth;
 global using MediLogix.Application.DTOs.Auth;
+global using MediLogix.Application.Queries.Others.GetAll;
+
