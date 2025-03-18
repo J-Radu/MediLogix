@@ -6,6 +6,7 @@ public interface IMediLogixDbContext
     DbSet<CurrentLocation> CurrentLocations { get; set; }
     DbSet<Description> Descriptions { get; set; }
     DbSet<Device> Devices { get; set; }
+    DbSet<Failure> Failures { get; set; }
     DbSet<Employee> Employees { get; set; }
     DbSet<FinancialInfo> FinancialInfos { get; set; }
     DbSet<Model> Models { get; set; }
@@ -13,5 +14,6 @@ public interface IMediLogixDbContext
     DbSet<PeriodicVerification> PeriodicVerifications { get; set; }
     DbSet<Piece> Pieces { get; set; }
     DbSet<WarrantyAndMaintenance> WarrantyAndMaintenances { get; set; }
+    DbSet<MetrologyReport> MetrologyReports { get; set; }
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

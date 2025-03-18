@@ -1,10 +1,11 @@
 namespace MediLogix.Application.Handlers.Queries.Employee;
 
-public class GetEmployeeByIdQueryHandler(IMediLogixDbContext context)
+public class GetEmployeeByIdQueryHandler(IDbContextFactory<MediLogixDbContext> contextFactory)
     : IRequestHandler<GetEmployeeByIdQuery, EmployeeDto>
 {
     public async Task<EmployeeDto> Handle(GetEmployeeByIdQuery request, CancellationToken cancellationToken)
     {
+        await using var context = await contextFactory.CreateDbContextAsync(cancellationToken);
         var employee = await context.Employees
             .AsNoTracking()
             .FirstOrDefaultAsync(e => e.Id == request.Id, cancellationToken);

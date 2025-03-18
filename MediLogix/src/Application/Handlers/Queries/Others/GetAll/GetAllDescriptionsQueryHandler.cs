@@ -1,10 +1,11 @@
 namespace MediLogix.Application.Handlers.Queries.Others.GetAll;
 
-public class GetAllDescriptionsQueryHandler(IMediLogixDbContext context)
+public class GetAllDescriptionsQueryHandler(IDbContextFactory<MediLogixDbContext> contextFactory)
     : IRequestHandler<GetAllDescriptionsQuery, List<DescriptionDto>>
 {
     public async Task<List<DescriptionDto>> Handle(GetAllDescriptionsQuery request, CancellationToken cancellationToken)
     {
+        await using var context = await contextFactory.CreateDbContextAsync(cancellationToken);
         var descriptions = await context.Descriptions
             .AsNoTracking()
             .ToListAsync(cancellationToken);

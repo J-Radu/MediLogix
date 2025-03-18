@@ -1,10 +1,11 @@
 namespace MediLogix.Application.Handlers.Queries.Activity;
 
-public class GetActivityByIdQueryHandler(IMediLogixDbContext context)
+public class GetActivityByIdQueryHandler(IDbContextFactory<MediLogixDbContext> contextFactory)
     : IRequestHandler<GetActivityByIdQuery, ActivityDto>
 {
     public async Task<ActivityDto> Handle(GetActivityByIdQuery request, CancellationToken cancellationToken)
     {
+        await using var context = await contextFactory.CreateDbContextAsync(cancellationToken);
         var activity = await context.Activities
             .Include(a => a.Employee)
             .AsNoTracking()
