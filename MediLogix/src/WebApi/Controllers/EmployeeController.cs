@@ -1,3 +1,6 @@
+using MediLogix.Application.Commands.Activity;
+using MediLogix.Application.Commands.Employee;
+
 namespace MediLogix.WebApi.Controllers;
 
 [ApiController]
@@ -27,6 +30,44 @@ public class EmployeeController(IMediator mediator) : ControllerBase
             
         return Ok(result);
     }
+
+    [HttpPost]
+    [ProducesResponseType(typeof(Guid), StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<Guid>> CreateEmployee([FromBody] CreateEmployeeCommand command)
+    {
+        var result = await mediator.Send(command);
+        return CreatedAtAction(nameof(GetEmployeeById), new { id = result }, result);
+    }
+
+    [HttpPut("{id:guid}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult> UpdateEmployee(Guid id, [FromBody] UpdateEmployeeCommand command)
+    {
+        if (id != command.Id)
+            return BadRequest();
+
+        await mediator.Send(command);
+        return NoContent();
+    }
+
+    [HttpDelete("{id:guid}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult> DeleteEmployee(Guid id)
+    {
+        await mediator.Send(new DeleteEmployeeByIdCommand{ Id = id });
+        return NoContent();
+    }
+
+    [HttpDelete("all")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<ActionResult> DeleteAllEmployees()
+    {
+        await mediator.Send(new DeleteAllEmployeesCommand());
+        return NoContent();
+    }
     #endregion
 
     #region Activity Endpoints
@@ -51,6 +92,44 @@ public class EmployeeController(IMediator mediator) : ControllerBase
             return NotFound();
             
         return Ok(result);
+    }
+
+    [HttpPost("activity")]
+    [ProducesResponseType(typeof(Guid), StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<Guid>> CreateActivity([FromBody] CreateActivityCommand command)
+    {
+        var result = await mediator.Send(command);
+        return CreatedAtAction(nameof(GetActivityById), new { id = result }, result);
+    }
+
+    [HttpPut("activity/{id:guid}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult> UpdateActivity(Guid id, [FromBody] UpdateActivityCommand command)
+    {
+        if (id != command.Id)
+            return BadRequest();
+
+        await mediator.Send(command);
+        return NoContent();
+    }
+
+    [HttpDelete("activity/{id:guid}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult> DeleteActivity(Guid id)
+    {
+        await mediator.Send(new DeleteActivityByIdCommand { Id = id });
+        return NoContent();
+    }
+
+    [HttpDelete("activity/all")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<ActionResult> DeleteAllActivities()
+    {
+        await mediator.Send(new DeleteAllActivitiesCommand());
+        return NoContent();
     }
     #endregion
 }

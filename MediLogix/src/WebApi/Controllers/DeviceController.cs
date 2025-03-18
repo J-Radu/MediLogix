@@ -1,3 +1,17 @@
+using MediLogix.Application.Commands.Device;
+using MediLogix.Application.Commands.Failure;
+using MediLogix.Application.Commands.MetrologyReport;
+using MediLogix.Application.Queries.CurrentLocation;
+using MediLogix.Application.Queries.Description;
+using MediLogix.Application.Queries.Failure;
+using MediLogix.Application.Queries.FinancialInfo;
+using MediLogix.Application.Queries.MetrologyReport;
+using MediLogix.Application.Queries.Model;
+using MediLogix.Application.Queries.OperatingTerms;
+using MediLogix.Application.Queries.PeriodicVerification;
+using MediLogix.Application.Queries.Piece;
+using MediLogix.Application.Queries.WarrantyAndMaintenance;
+
 namespace MediLogix.WebApi.Controllers;
 
 [ApiController]
@@ -26,6 +40,44 @@ public class DeviceController(IMediator mediator) : ControllerBase
             return NotFound();
             
         return Ok(result);
+    }
+
+    [HttpPost]
+    [ProducesResponseType(typeof(Guid), StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<Guid>> CreateDevice([FromBody] CreateDeviceCommand command)
+    {
+        var result = await mediator.Send(command);
+        return CreatedAtAction(nameof(GetById), new { id = result }, result);
+    }
+
+    [HttpPut("{id:guid}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult> UpdateDevice(Guid id, [FromBody] UpdateDeviceCommand command)
+    {
+        if (id != command.Id)
+            return BadRequest();
+
+        await mediator.Send(command);
+        return NoContent();
+    }
+
+    [HttpDelete("{id:guid}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult> DeleteDevice(Guid id)
+    {
+        await mediator.Send(new DeleteDeviceByIdCommand{ Id = id });
+        return NoContent();
+    }
+
+    [HttpDelete("all")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<ActionResult> DeleteAllDevices()
+    {
+        await mediator.Send(new DeleteAllDevicesCommand());
+        return NoContent();
     }
     #endregion
 
@@ -180,6 +232,36 @@ public class DeviceController(IMediator mediator) : ControllerBase
             
         return Ok(result);
     }
+
+    [HttpPost("metrology-report")]
+    [ProducesResponseType(typeof(Guid), StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<Guid>> CreateMetrologyReport([FromBody] CreateMetrologyReportCommand command)
+    {
+        var result = await mediator.Send(command);
+        return CreatedAtAction(nameof(GetMetrologyReportById), new { id = result }, result);
+    }
+
+    [HttpPut("metrology-report/{id:guid}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult> UpdateMetrologyReport(Guid id, [FromBody] UpdateMetrologyReportCommand command)
+    {
+        if (id != command.Id)
+            return BadRequest();
+
+        await mediator.Send(command);
+        return NoContent();
+    }
+
+    [HttpDelete("metrology-report/{id:guid}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult> DeleteMetrologyReport(Guid id)
+    {
+        await mediator.Send(new DeleteMetrologyReportByIdCommand{ Id = id });
+        return NoContent();
+    }
     #endregion
 
     #region Failure Endpoints
@@ -204,6 +286,36 @@ public class DeviceController(IMediator mediator) : ControllerBase
             return NotFound();
             
         return Ok(result);
+    }
+
+    [HttpPost("failure")]
+    [ProducesResponseType(typeof(Guid), StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<Guid>> CreateFailure([FromBody] CreateFailureCommand command)
+    {
+        var result = await mediator.Send(command);
+        return CreatedAtAction(nameof(GetFailureById), new { id = result }, result);
+    }
+
+    [HttpPut("failure/{id:guid}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult> UpdateFailure(Guid id, [FromBody] UpdateFailureCommand command)
+    {
+        if (id != command.Id)
+            return BadRequest();
+
+        await mediator.Send(command);
+        return NoContent();
+    }
+
+    [HttpDelete("failure/{id:guid}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult> DeleteFailure(Guid id)
+    {
+        await mediator.Send(new DeleteFailureByIdCommand{ Id = id });
+        return NoContent();
     }
     #endregion
 } 

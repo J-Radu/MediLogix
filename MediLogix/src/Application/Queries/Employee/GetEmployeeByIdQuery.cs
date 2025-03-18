@@ -1,6 +1,3 @@
 namespace MediLogix.Application.Queries.Employee;
 
-public class GetEmployeeByIdQuery : IRequest<EmployeeDto>
-{
-    public Guid Id { get; set; }
-} 
+public sealed class GetEmployeeByIdQuery : EntityBase, IRequest<EmployeeDto>;

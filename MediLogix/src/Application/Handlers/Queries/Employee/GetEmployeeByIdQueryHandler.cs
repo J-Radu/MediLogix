@@ -1,6 +1,6 @@
 namespace MediLogix.Application.Handlers.Queries.Employee;
 
-public class GetEmployeeByIdQueryHandler(IDbContextFactory<MediLogixDbContext> contextFactory)
+public sealed class GetEmployeeByIdQueryHandler(IDbContextFactory<MediLogixDbContext> contextFactory)
     : IRequestHandler<GetEmployeeByIdQuery, EmployeeDto>
 {
     public async Task<EmployeeDto> Handle(GetEmployeeByIdQuery request, CancellationToken cancellationToken)

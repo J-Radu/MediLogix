@@ -74,7 +74,7 @@ public sealed class UpdateDeviceCommandHandler(IDbContextFactory<MediLogixDbCont
         }
         else if (!string.IsNullOrEmpty(request.FailureType) || !string.IsNullOrEmpty(request.FailureDescription))
         {
-            device.Failures.Add(new Failure
+            device.Failures.Add(new Domain.Entities.Failure
             {
                 FailureType = request.FailureType,
                 FailureDescription = request.FailureDescription

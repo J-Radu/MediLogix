@@ -1,5 +1,3 @@
 namespace MediLogix.Application.Queries.Employee;
 
-public class GetAllEmployeesQuery : IRequest<List<EmployeeDto>>
-{
-} 
+public sealed class GetAllEmployeesQuery : IRequest<List<EmployeeDto>>;

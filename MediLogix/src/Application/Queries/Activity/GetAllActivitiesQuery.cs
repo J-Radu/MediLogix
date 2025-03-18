@@ -1,5 +1,3 @@
 namespace MediLogix.Application.Queries.Activity;
 
-public class GetAllActivitiesQuery : IRequest<List<ActivityDto>>
-{
-} 
+public sealed class GetAllActivitiesQuery : IRequest<List<ActivityDto>>;

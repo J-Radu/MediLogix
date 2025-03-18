@@ -10,7 +10,7 @@ public sealed class CreateDeviceCommandHandler(IDbContextFactory<MediLogixDbCont
         var device = new Domain.Entities.Device();
 
         // Create and associate Model
-        var model = new Model
+        var model = new Domain.Entities.Model
         {
             DmModel = request.DmModel,
             GMDN = request.GMDN,
@@ -20,7 +20,7 @@ public sealed class CreateDeviceCommandHandler(IDbContextFactory<MediLogixDbCont
         device.Model = model;
 
         // Create and associate Description
-        var description = new Description
+        var description = new Domain.Entities.Description
         {
             DeviceName = request.DeviceName,
             DeviceDescription = request.DeviceDescription,
@@ -30,7 +30,7 @@ public sealed class CreateDeviceCommandHandler(IDbContextFactory<MediLogixDbCont
         device.Description = description;
 
         // Create and associate FinancialInfo
-        var financialInfo = new FinancialInfo
+        var financialInfo = new Domain.Entities.FinancialInfo
         {
             AcquisitionPrice = request.AcquisitionPrice,
             Currency = request.Currency
@@ -38,7 +38,7 @@ public sealed class CreateDeviceCommandHandler(IDbContextFactory<MediLogixDbCont
         device.FinancialInfo = financialInfo;
 
         // Create and associate OperatingTerms
-        var operatingTerms = new OperatingTerms
+        var operatingTerms = new Domain.Entities.OperatingTerms
         {
             ProductionDate = request.ProductionDate,
             DeliveryDate = request.DeliveryDate,
@@ -49,7 +49,7 @@ public sealed class CreateDeviceCommandHandler(IDbContextFactory<MediLogixDbCont
         device.OperatingTerms = operatingTerms;
 
         // Create and associate WarrantyAndMaintenance
-        var warrantyAndMaintenance = new WarrantyAndMaintenance
+        var warrantyAndMaintenance = new Domain.Entities.WarrantyAndMaintenance
         {
             ContractNumber = request.ContractNumber,
             MaintenanceContract = request.MaintenanceContract,
@@ -60,7 +60,7 @@ public sealed class CreateDeviceCommandHandler(IDbContextFactory<MediLogixDbCont
         device.WarrantyAndMaintenance = warrantyAndMaintenance;
 
         // Create and associate PeriodicVerification
-        var periodicVerification = new PeriodicVerification
+        var periodicVerification = new Domain.Entities.PeriodicVerification
         {
             IsSubject = request.IsSubject,
             VerificationPeriodicity = request.VerificationPeriodicity,
@@ -71,7 +71,7 @@ public sealed class CreateDeviceCommandHandler(IDbContextFactory<MediLogixDbCont
         device.PeriodicVerification = periodicVerification;
 
         // Create and associate CurrentLocation
-        var currentLocation = new CurrentLocation
+        var currentLocation = new Domain.Entities.CurrentLocation
         {
             IMS = request.IMS,
             Department = request.Department,
@@ -83,7 +83,7 @@ public sealed class CreateDeviceCommandHandler(IDbContextFactory<MediLogixDbCont
         // Create and associate Failure if exists
         if (!string.IsNullOrEmpty(request.FailureType) || !string.IsNullOrEmpty(request.FailureDescription))
         {
-            var failure = new Failure
+            var failure = new Domain.Entities.Failure
             {
                 FailureType = request.FailureType,
                 FailureDescription = request.FailureDescription
@@ -92,7 +92,7 @@ public sealed class CreateDeviceCommandHandler(IDbContextFactory<MediLogixDbCont
         }
 
         // Create and associate MetrologyReport
-        var metrologyReport = new MetrologyReport
+        var metrologyReport = new Domain.Entities.MetrologyReport
         {
             ReportNumber = request.ReportNumber,
             IssueDate = request.ReportIssueDate,

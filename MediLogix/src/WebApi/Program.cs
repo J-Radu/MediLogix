@@ -1,7 +1,9 @@
+using AutoMapper;
+using MediLogix.Application.Common.Mappings;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddDbContextFactory<MediLogixDbContext>(opt =>
@@ -46,6 +48,9 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
 
 // Add JWT Service
 builder.Services.AddScoped<IJwtService, JwtService>();
+
+// Add Mapping Configuration
+builder.Services.AddMappings();
 
 var app = builder.Build();
 
