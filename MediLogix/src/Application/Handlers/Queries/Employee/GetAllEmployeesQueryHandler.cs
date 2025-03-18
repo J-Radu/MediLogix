@@ -5,7 +5,7 @@ public class GetAllEmployeesQueryHandler(IDbContextFactory<MediLogixDbContext> c
 {
     public async Task<List<EmployeeDto>> Handle(GetAllEmployeesQuery request, CancellationToken cancellationToken)
     {
-        var context = await contextFactory.CreateDbContextAsync(cancellationToken);
+        await using var context = await contextFactory.CreateDbContextAsync(cancellationToken);
         var employees = await context.Employees
             .AsNoTracking()
             .ToListAsync(cancellationToken);

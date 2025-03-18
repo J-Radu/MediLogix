@@ -5,7 +5,7 @@ public class GetFinancialInfoByIdQueryHandler(IDbContextFactory<MediLogixDbConte
 {
     public async Task<FinancialInfoDto> Handle(GetFinancialInfoByIdQuery request, CancellationToken cancellationToken)
     {
-        var context = await contextFactory.CreateDbContextAsync(cancellationToken);
+        await using var context = await contextFactory.CreateDbContextAsync(cancellationToken);
         var financialInfo = await context.FinancialInfos
             .AsNoTracking()
             .FirstOrDefaultAsync(fi => fi.Id == request.Id, cancellationToken);

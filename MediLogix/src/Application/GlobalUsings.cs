@@ -14,9 +14,13 @@ global using MediLogix.Application.Queries.Others.GetById;
 global using MediLogix.Application.Commands.Auth;
 global using Microsoft.AspNetCore.Identity;
 global using MediLogix.Application.DTOs.Auth;
-global using System.Security.Claims;
-
-
-
-
+global using MediLogix.Application.Commands.Others.DeleteAll;
+global using MediLogix.Application.Commands.Others.DeleteById;
+global using MediLogix.Application.Commands.Others.Create;
+global using MapsterMapper;
+global using MediLogix.Application.Commands.Others.Update;
+global using MediLogix.Application.Commands.Activity;
+global using MediLogix.Application.Commands.Device;
+global using MediLogix.Application.Commands.Employee;
+global using MediLogix.Infrastructure.Persistence.Interfaces;
 

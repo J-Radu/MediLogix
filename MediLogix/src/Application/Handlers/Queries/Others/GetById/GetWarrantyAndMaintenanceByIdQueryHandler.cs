@@ -5,7 +5,7 @@ public class GetWarrantyAndMaintenanceByIdQueryHandler(IDbContextFactory<MediLog
 {
     public async Task<WarrantyAndMaintenanceDto> Handle(GetWarrantyAndMaintenanceByIdQuery request, CancellationToken cancellationToken)
     {
-        var context = await contextFactory.CreateDbContextAsync(cancellationToken);
+        await using var context = await contextFactory.CreateDbContextAsync(cancellationToken);
         var warrantyAndMaintenance = await context.WarrantyAndMaintenances
             .AsNoTracking()
             .FirstOrDefaultAsync(wm => wm.Id == request.Id, cancellationToken);

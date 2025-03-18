@@ -5,7 +5,7 @@ public class GetMetrologyReportByIdQueryHandler(IDbContextFactory<MediLogixDbCon
 {
     public async Task<MetrologyReportDto> Handle(GetMetrologyReportByIdQuery request, CancellationToken cancellationToken)
     {
-        var context = await contextFactory.CreateDbContextAsync(cancellationToken);
+        await using var context = await contextFactory.CreateDbContextAsync(cancellationToken);
         var report = await context.MetrologyReports
             .AsNoTracking()
             .FirstOrDefaultAsync(r => r.Id == request.Id, cancellationToken);

@@ -5,7 +5,7 @@ public class GetAllPiecesQueryHandler(IDbContextFactory<MediLogixDbContext> cont
 {
     public async Task<List<PieceDto>> Handle(GetAllPiecesQuery request, CancellationToken cancellationToken)
     {
-        var context = await contextFactory.CreateDbContextAsync(cancellationToken);
+        await using var context = await contextFactory.CreateDbContextAsync(cancellationToken);
         var pieces = await context.Pieces
             .AsNoTracking()
             .ToListAsync(cancellationToken);

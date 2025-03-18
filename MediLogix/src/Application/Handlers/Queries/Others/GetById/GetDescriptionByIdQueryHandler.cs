@@ -5,7 +5,7 @@ public class GetDescriptionByIdQueryHandler(IDbContextFactory<MediLogixDbContext
 {
     public async Task<DescriptionDto> Handle(GetDescriptionByIdQuery request, CancellationToken cancellationToken)
     {
-        var context = await contextFactory.CreateDbContextAsync(cancellationToken);
+        await using var context = await contextFactory.CreateDbContextAsync(cancellationToken);
         var description = await context.Descriptions
             .AsNoTracking()
             .FirstOrDefaultAsync(d => d.Id == request.Id, cancellationToken);

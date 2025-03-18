@@ -5,7 +5,7 @@ public class GetPeriodicVerificationByIdQueryHandler(IDbContextFactory<MediLogix
 {
     public async Task<PeriodicVerificationDto> Handle(GetPeriodicVerificationByIdQuery request, CancellationToken cancellationToken)
     {
-        var context = await contextFactory.CreateDbContextAsync(cancellationToken);
+        await using var context = await contextFactory.CreateDbContextAsync(cancellationToken);
         var periodicVerification = await context.PeriodicVerifications
             .AsNoTracking()
             .FirstOrDefaultAsync(pv => pv.Id == request.Id, cancellationToken);

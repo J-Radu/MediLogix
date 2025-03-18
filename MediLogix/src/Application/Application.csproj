@@ -11,20 +11,21 @@
     <ItemGroup>
       <Folder Include="Commands\Activity\" />
       <Folder Include="Commands\Auth\" />
+      <Folder Include="Commands\Device\" />
       <Folder Include="Commands\Employee\" />
-      <Folder Include="Commands\Others\" />
+      <Folder Include="Commands\Others\Create\" />
+      <Folder Include="Commands\Others\DeleteAll\" />
+      <Folder Include="Commands\Others\DeleteById\" />
+      <Folder Include="Commands\Others\Update\" />
       <Folder Include="Common\" />
       <Folder Include="Handlers\Commands\Activity\" />
       <Folder Include="Handlers\Commands\Auth\" />
-      <Folder Include="Handlers\Commands\CurrentLocation\" />
-      <Folder Include="Handlers\Commands\Description\" />
+      <Folder Include="Handlers\Commands\Device\" />
       <Folder Include="Handlers\Commands\Employee\" />
-      <Folder Include="Handlers\Commands\FinancialInfo\" />
-      <Folder Include="Handlers\Commands\Model\" />
-      <Folder Include="Handlers\Commands\OperatingTerms\" />
-      <Folder Include="Handlers\Commands\PeriodicVerification\" />
-      <Folder Include="Handlers\Commands\Piece\" />
-      <Folder Include="Handlers\Commands\WarrantyAndMaintenance\" />
+      <Folder Include="Handlers\Commands\Others\Create\" />
+      <Folder Include="Handlers\Commands\Others\DeleteAll\" />
+      <Folder Include="Handlers\Commands\Others\DeleteById\" />
+      <Folder Include="Handlers\Commands\Others\Update\" />
       <Folder Include="Services\" />
       <Folder Include="Validators\" />
     </ItemGroup>

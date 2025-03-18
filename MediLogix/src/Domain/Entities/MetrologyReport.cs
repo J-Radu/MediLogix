@@ -1,5 +1,3 @@
-using System;
-
 namespace MediLogix.Domain.Entities;
 
 public class MetrologyReport : EntityBase
@@ -13,8 +11,8 @@ public class MetrologyReport : EntityBase
     public string Recommendations { get; set; }
     public bool IsApproved { get; set; }
     public string DocumentName { get; set; }
-    public string DocumentType { get; set; }  
-    public byte[] DocumentData { get; set; }
+    public string? DocumentType { get; set; }  
+    public byte[]? DocumentData { get; set; }
     public long DocumentSize { get; set; }    
     public DateTime UploadDate { get; set; }
     public virtual Device? Device { get; set; }

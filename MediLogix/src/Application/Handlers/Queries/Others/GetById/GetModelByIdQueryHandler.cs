@@ -5,7 +5,7 @@ public class GetModelByIdQueryHandler(IDbContextFactory<MediLogixDbContext> cont
 {
     public async Task<ModelDto> Handle(GetModelByIdQuery request, CancellationToken cancellationToken)
     {
-        var context = await contextFactory.CreateDbContextAsync(cancellationToken);
+        await using var context = await contextFactory.CreateDbContextAsync(cancellationToken);
         var model = await context.Models
             .AsNoTracking()
             .FirstOrDefaultAsync(m => m.Id == request.Id, cancellationToken);

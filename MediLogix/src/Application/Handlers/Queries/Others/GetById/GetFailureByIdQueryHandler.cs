@@ -4,7 +4,7 @@ public class GetFailureByIdQueryHandler(IDbContextFactory<MediLogixDbContext> co
 {
     public async Task<FailureDto> Handle(GetFailureByIdQuery request, CancellationToken cancellationToken)
     {
-        var context = await contextFactory.CreateDbContextAsync(cancellationToken);
+        await using var context = await contextFactory.CreateDbContextAsync(cancellationToken);
         var failure = await context.Failures
             .AsNoTracking()
             .FirstOrDefaultAsync(f => f.Id == request.Id, cancellationToken);

@@ -5,7 +5,7 @@ public class GetPieceByIdQueryHandler(IDbContextFactory<MediLogixDbContext> cont
 {
     public async Task<PieceDto> Handle(GetPieceByIdQuery request, CancellationToken cancellationToken)
     {
-        var context = await contextFactory.CreateDbContextAsync(cancellationToken);
+        await using var context = await contextFactory.CreateDbContextAsync(cancellationToken);
         var piece = await context.Pieces
             .AsNoTracking()
             .FirstOrDefaultAsync(p => p.Id == request.Id, cancellationToken);

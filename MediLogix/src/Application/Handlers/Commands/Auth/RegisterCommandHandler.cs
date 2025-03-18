@@ -1,21 +1,11 @@
-using MediLogix.Infrastructure.Persistence.Interfaces;
-
 namespace MediLogix.Application.Handlers.Commands.Auth;
 
-public class RegisterCommandHandler : IRequestHandler<RegisterCommand, AuthResponseDto>
+public class RegisterCommandHandler(UserManager<ApplicationUser> userManager, IJwtService jwtService)
+    : IRequestHandler<RegisterCommand, AuthResponseDto>
 {
-    private readonly UserManager<ApplicationUser> _userManager;
-    private readonly IJwtService _jwtService;
-
-    public RegisterCommandHandler(UserManager<ApplicationUser> userManager, IJwtService jwtService)
-    {
-        _userManager = userManager;
-        _jwtService = jwtService;
-    }
-
     public async Task<AuthResponseDto> Handle(RegisterCommand request, CancellationToken cancellationToken)
     {
-        var userExists = await _userManager.FindByEmailAsync(request.RegisterDto.Email);
+        var userExists = await userManager.FindByEmailAsync(request.RegisterDto.Email);
         if (userExists != null)
         {
             return new AuthResponseDto
@@ -29,7 +19,7 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, AuthRespo
         {
             Email = request.RegisterDto.Email,
             UserName = request.RegisterDto.Email,
-            Employee = new Employee
+            Employee = new Domain.Entities.Employee
             {
                 FirstName = request.RegisterDto.FirstName,
                 LastName = request.RegisterDto.LastName,
@@ -42,7 +32,7 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, AuthRespo
             }
         };
 
-        var result = await _userManager.CreateAsync(user, request.RegisterDto.Password);
+        var result = await userManager.CreateAsync(user, request.RegisterDto.Password);
         if (!result.Succeeded)
         {
             return new AuthResponseDto
@@ -52,15 +42,15 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, AuthRespo
             };
         }
 
-        await _userManager.AddToRoleAsync(user, "Employee");
+        await userManager.AddToRoleAsync(user, "Employee");
 
-        var roles = await _userManager.GetRolesAsync(user);
-        var accessToken = _jwtService.GenerateAccessToken(user, roles);
-        var refreshToken = _jwtService.GenerateRefreshToken();
+        var roles = await userManager.GetRolesAsync(user);
+        var accessToken = jwtService.GenerateAccessToken(user, roles);
+        var refreshToken = jwtService.GenerateRefreshToken();
 
         user.RefreshToken = refreshToken;
         user.RefreshTokenExpiryTime = DateTime.Now.AddDays(7);
-        await _userManager.UpdateAsync(user);
+        await userManager.UpdateAsync(user);
 
         return new AuthResponseDto
         {

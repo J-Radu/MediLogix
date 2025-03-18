@@ -5,7 +5,7 @@ public class GetDeviceByIdQueryHandler(IDbContextFactory<MediLogixDbContext> con
 {
     public async Task<DeviceDto> Handle(GetDeviceByIdQuery request, CancellationToken cancellationToken)
     {
-        var context = await contextFactory.CreateDbContextAsync(cancellationToken);
+        await using var context = await contextFactory.CreateDbContextAsync(cancellationToken);
         var device = await context.Devices
             .Include(d => d.Model)
             .Include(d => d.Description)

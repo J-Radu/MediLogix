@@ -5,7 +5,7 @@ public class GetAllPeriodicVerificationsQueryHandler(IDbContextFactory<MediLogix
 {
     public async Task<List<PeriodicVerificationDto>> Handle(GetAllPeriodicVerificationsQuery request, CancellationToken cancellationToken)
     {
-        var context = await contextFactory.CreateDbContextAsync(cancellationToken);
+        await using var context = await contextFactory.CreateDbContextAsync(cancellationToken);
         var periodicVerifications = await context.PeriodicVerifications
             .AsNoTracking()
             .ToListAsync(cancellationToken);

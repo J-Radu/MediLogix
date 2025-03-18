@@ -5,7 +5,7 @@ public class GetActivityByIdQueryHandler(IDbContextFactory<MediLogixDbContext> c
 {
     public async Task<ActivityDto> Handle(GetActivityByIdQuery request, CancellationToken cancellationToken)
     {
-        var context = await contextFactory.CreateDbContextAsync(cancellationToken);
+        await using var context = await contextFactory.CreateDbContextAsync(cancellationToken);
         var activity = await context.Activities
             .Include(a => a.Employee)
             .AsNoTracking()

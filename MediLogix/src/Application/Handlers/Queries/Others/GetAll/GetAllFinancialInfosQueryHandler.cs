@@ -5,7 +5,7 @@ public class GetAllFinancialInfosQueryHandler(IDbContextFactory<MediLogixDbConte
 {
     public async Task<List<FinancialInfoDto>> Handle(GetAllFinancialInfosQuery request, CancellationToken cancellationToken)
     {
-        var context = await contextFactory.CreateDbContextAsync(cancellationToken);
+        await using var context = await contextFactory.CreateDbContextAsync(cancellationToken);
         var financialInfos = await context.FinancialInfos
             .AsNoTracking()
             .ToListAsync(cancellationToken);

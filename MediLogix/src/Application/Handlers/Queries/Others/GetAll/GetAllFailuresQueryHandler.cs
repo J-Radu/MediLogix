@@ -4,7 +4,7 @@ public class GetAllFailuresQueryHandler(IDbContextFactory<MediLogixDbContext> co
 {
     public async Task<List<FailureDto>> Handle(GetAllFailuresQuery request, CancellationToken cancellationToken)
     {
-        var context = await contextFactory.CreateDbContextAsync(cancellationToken);
+        await using var context = await contextFactory.CreateDbContextAsync(cancellationToken);
         var failures = await context.Failures
             .AsNoTracking()
             .ToListAsync(cancellationToken);

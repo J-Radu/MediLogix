@@ -5,7 +5,7 @@ public class GetAllOperatingTermsQueryHandler(IDbContextFactory<MediLogixDbConte
 {
     public async Task<List<OperatingTermsDto>> Handle(GetAllOperatingTermsQuery request, CancellationToken cancellationToken)
     {
-        var context = await contextFactory.CreateDbContextAsync(cancellationToken);
+        await using var context = await contextFactory.CreateDbContextAsync(cancellationToken);
         var operatingTerms = await context.OperatingTerms
             .AsNoTracking()
             .ToListAsync(cancellationToken);
