@@ -1,0 +1,30 @@
+using MediLogix.Application.Queries.OperatingTerms;
+
+namespace MediLogix.Application.Handlers.Queries.OperatingTerms;
+
+public sealed class GetOperatingTermsByIdQueryHandler(IDbContextFactory<MediLogixDbContext> contextFactory)
+    : IRequestHandler<GetOperatingTermsByIdQuery, OperatingTermsDto>
+{
+    public async Task<OperatingTermsDto> Handle(GetOperatingTermsByIdQuery request, CancellationToken cancellationToken)
+    {
+        await using var context = await contextFactory.CreateDbContextAsync(cancellationToken);
+        var operatingTerms = await context.OperatingTerms
+            .AsNoTracking()
+            .FirstOrDefaultAsync(ot => ot.Id == request.Id, cancellationToken);
+
+        if (operatingTerms == null)
+        {
+            return null;
+        }
+
+        return new OperatingTermsDto
+        {
+            Id = operatingTerms.Id,
+            ProductionDate = operatingTerms.ProductionDate,
+            DeliveryDate = operatingTerms.DeliveryDate,
+            InstallationDate = operatingTerms.InstallationDate,
+            GuaranteeExpirationDate = operatingTerms.GuaranteeExpirationDate,
+            ExploitationTime = operatingTerms.ExploitationTime
+        };
+    }
+} 

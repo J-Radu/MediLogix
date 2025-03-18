@@ -4,7 +4,6 @@ global using MediLogix.Application;
 global using MediatR;
 global using MediLogix.Application.DTOs;
 global using MediLogix.Application.Queries.Device;
-global using MediLogix.Application.Queries.Others.GetById;
 global using Microsoft.AspNetCore.Mvc;
 global using MediLogix.Application.Queries.Activity;
 global using MediLogix.Application.Queries.Employee;
@@ -18,5 +17,3 @@ global using Microsoft.IdentityModel.Tokens;
 global using Microsoft.AspNetCore.Authorization;
 global using MediLogix.Application.Commands.Auth;
 global using MediLogix.Application.DTOs.Auth;
-global using MediLogix.Application.Queries.Others.GetAll;
-

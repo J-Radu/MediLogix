@@ -1,6 +1,6 @@
 namespace MediLogix.Application.Handlers.Queries.Device;
 
-public class GetAllDevicesQueryHandler(IDbContextFactory<MediLogixDbContext> contextFactory)
+public sealed class GetAllDevicesQueryHandler(IDbContextFactory<MediLogixDbContext> contextFactory)
     : IRequestHandler<GetAllDevicesQuery, List<DeviceDto>>
 {
     public async Task<List<DeviceDto>> Handle(GetAllDevicesQuery request, CancellationToken cancellationToken)

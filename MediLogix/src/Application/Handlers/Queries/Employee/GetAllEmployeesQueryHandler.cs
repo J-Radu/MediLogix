@@ -1,6 +1,6 @@
 namespace MediLogix.Application.Handlers.Queries.Employee;
 
-public class GetAllEmployeesQueryHandler(IDbContextFactory<MediLogixDbContext> contextFactory)
+public sealed class GetAllEmployeesQueryHandler(IDbContextFactory<MediLogixDbContext> contextFactory)
     : IRequestHandler<GetAllEmployeesQuery, List<EmployeeDto>>
 {
     public async Task<List<EmployeeDto>> Handle(GetAllEmployeesQuery request, CancellationToken cancellationToken)

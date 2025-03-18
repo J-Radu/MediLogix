@@ -1,6 +1,6 @@
 namespace MediLogix.Application.Handlers.Queries.Activity;
 
-public class GetActivityByIdQueryHandler(IDbContextFactory<MediLogixDbContext> contextFactory)
+public sealed class GetActivityByIdQueryHandler(IDbContextFactory<MediLogixDbContext> contextFactory)
     : IRequestHandler<GetActivityByIdQuery, ActivityDto>
 {
     public async Task<ActivityDto> Handle(GetActivityByIdQuery request, CancellationToken cancellationToken)

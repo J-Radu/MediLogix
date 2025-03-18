@@ -13,21 +13,8 @@
       <Folder Include="Commands\Auth\" />
       <Folder Include="Commands\Device\" />
       <Folder Include="Commands\Employee\" />
-      <Folder Include="Commands\Others\Create\" />
-      <Folder Include="Commands\Others\DeleteAll\" />
-      <Folder Include="Commands\Others\DeleteById\" />
-      <Folder Include="Commands\Others\Update\" />
       <Folder Include="Common\" />
-      <Folder Include="Handlers\Commands\Activity\" />
       <Folder Include="Handlers\Commands\Auth\" />
-      <Folder Include="Handlers\Commands\Device\" />
-      <Folder Include="Handlers\Commands\Employee\" />
-      <Folder Include="Handlers\Commands\Others\Create\" />
-      <Folder Include="Handlers\Commands\Others\DeleteAll\" />
-      <Folder Include="Handlers\Commands\Others\DeleteById\" />
-      <Folder Include="Handlers\Commands\Others\Update\" />
-      <Folder Include="Services\" />
-      <Folder Include="Validators\" />
     </ItemGroup>
 
     <ItemGroup>
@@ -35,6 +22,7 @@
       <PackageReference Include="FluentValidation" Version="11.11.0" />
       <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.11.0" />
       <PackageReference Include="Mapster" Version="7.4.2-pre02" />
+      <PackageReference Include="Mapster.DependencyInjection" Version="1.0.3-pre02" />
       <PackageReference Include="MediatR" Version="12.4.1" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.13" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />

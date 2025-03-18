@@ -1,6 +1,3 @@
 namespace MediLogix.Application.Queries.Device;
 
-public class GetDeviceByIdQuery : IRequest<DeviceDto>
-{
-    public Guid Id { get; set; }
-} 
+public sealed class GetDeviceByIdQuery : EntityBase, IRequest<DeviceDto>;
