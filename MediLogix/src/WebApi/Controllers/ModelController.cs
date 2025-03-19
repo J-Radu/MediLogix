@@ -2,23 +2,14 @@ namespace MediLogix.WebApi.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class DeviceController(IMediator mediator) : ControllerBase
+public class ModelController(IMediator mediator) : ControllerBase
 {
-    [HttpGet]
-    [ProducesResponseType(typeof(List<DeviceDto>), StatusCodes.Status200OK)]
-    public async Task<ActionResult<List<DeviceDto>>> GetAll()
-    {
-        var query = new GetAllDevicesQuery();
-        var result = await mediator.Send(query);
-        return Ok(result);
-    }
-    
     [HttpGet("{id:guid}")]
-    [ProducesResponseType(typeof(DeviceDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ModelDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<DeviceDto>> GetById(Guid id)
+    public async Task<ActionResult<ModelDto>> GetModelById(Guid id)
     {
-        var query = new GetDeviceByIdQuery { Id = id };
+        var query = new GetModelByIdQuery { Id = id };
         var result = await mediator.Send(query);
         
         if (result == null)
@@ -27,19 +18,28 @@ public class DeviceController(IMediator mediator) : ControllerBase
         return Ok(result);
     }
 
+    [HttpGet]
+    [ProducesResponseType(typeof(List<ModelDto>), StatusCodes.Status200OK)]
+    public async Task<ActionResult<List<ModelDto>>> GetAllModels()
+    {
+        var query = new GetAllModelsQuery();
+        var result = await mediator.Send(query);
+        return Ok(result);
+    }
+
     [HttpPost]
     [ProducesResponseType(typeof(Guid), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<Guid>> CreateDevice([FromBody] CreateDeviceCommand command)
+    public async Task<ActionResult<Guid>> CreateModel([FromBody] CreateModelCommand command)
     {
         var result = await mediator.Send(command);
-        return CreatedAtAction(nameof(GetById), new { id = result }, result);
+        return CreatedAtAction(nameof(GetModelById), new { id = result }, result);
     }
 
     [HttpPut("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult> UpdateDevice(Guid id, [FromBody] UpdateDeviceCommand command)
+    public async Task<ActionResult> UpdateModel(Guid id, [FromBody] UpdateModelCommand command)
     {
         if (id != command.Id)
             return BadRequest();
@@ -51,17 +51,17 @@ public class DeviceController(IMediator mediator) : ControllerBase
     [HttpDelete("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult> DeleteDevice(Guid id)
+    public async Task<ActionResult> DeleteModel(Guid id)
     {
-        await mediator.Send(new DeleteDeviceByIdCommand{ Id = id });
+        await mediator.Send(new DeleteModelByIdCommand{ Id = id });
         return NoContent();
     }
 
     [HttpDelete("all")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public async Task<ActionResult> DeleteAllDevices()
+    public async Task<ActionResult> DeleteAllModels()
     {
-        await mediator.Send(new DeleteAllDevicesCommand());
+        await mediator.Send(new DeleteAllModelsCommand());
         return NoContent();
     }
 } 

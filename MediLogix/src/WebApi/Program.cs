@@ -1,4 +1,3 @@
-using AutoMapper;
 using MediLogix.Application.Common.Mappings;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,10 +9,6 @@ builder.Services.AddDbContextFactory<MediLogixDbContext>(opt =>
 {
     opt.UseSqlServer(builder.Configuration.GetConnectionString("MediLogixDB"));
 });
-
-/*// Add this line to register the interface
-builder.Services.AddScoped<IMediLogixDbContext>(provider => 
-    provider.GetRequiredService<MediLogixDbContext>());*/
 
 builder.Services.AddSwaggerGen();
 
