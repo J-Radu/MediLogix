@@ -1,66 +1,44 @@
-using MediLogix.Application.Common.Mappings;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddDbContextFactory<MediLogixDbContext>(opt =>
-{
-    opt.UseSqlServer(builder.Configuration.GetConnectionString("MediLogixDB"));
-});
+builder.Services.AddDatabaseServices(builder.Configuration);
 
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerDocumentation();
 
 builder.Services.AddApplicationServices();
 
 // Add JWT Configuration
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(options =>
-{
-    options.SaveToken = true;
-    options.RequireHttpsMetadata = false;
-    options.TokenValidationParameters = new TokenValidationParameters()
-    {
-        ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidAudience = builder.Configuration["JWT:ValidAudience"],
-        ValidIssuer = builder.Configuration["JWT:ValidIssuer"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"])),
-        ValidateLifetime = true,
-        ClockSkew = TimeSpan.Zero
-    };
-});
+builder.Services.AddJwtAuthentication(builder.Configuration);
 
 // Add Identity
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-    .AddEntityFrameworkStores<MediLogixDbContext>()
-    .AddDefaultTokenProviders();
+builder.Services.AddIdentityServices();
 
-// Add JWT Service
 builder.Services.AddScoped<IJwtService, JwtService>();
-
-// Add Mapping Configuration
 builder.Services.AddMappings();
+builder.Services.AddScoped<IActivityLogRepository, ActivityLogRepository>();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerDocumentation();
 }
 
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
+app.UseActivityLogging();
 app.UseAuthorization();
 
 app.MapControllers();
+
+using (var scope = app.Services.CreateScope())
+{
+    var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+    await AdminInitializer.InitializeAdminAccount(app.Services, logger);
+}
 
 app.Run();
