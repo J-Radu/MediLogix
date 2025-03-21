@@ -15,5 +15,6 @@ public interface IMediLogixDbContext
     DbSet<Piece> Pieces { get; set; }
     DbSet<WarrantyAndMaintenance> WarrantyAndMaintenances { get; set; }
     DbSet<MetrologyReport> MetrologyReports { get; set; }
+    DbSet<ActivityLog> ActivityLogs { get; set; }
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

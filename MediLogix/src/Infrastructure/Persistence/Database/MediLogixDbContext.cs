@@ -21,6 +21,7 @@ public sealed class MediLogixDbContext : IdentityDbContext, IMediLogixDbContext
     public DbSet<Piece> Pieces { get; set; }
     public DbSet<WarrantyAndMaintenance> WarrantyAndMaintenances { get; set; }
     public DbSet<MetrologyReport> MetrologyReports { get; set; }
+    public DbSet<ActivityLog> ActivityLogs { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

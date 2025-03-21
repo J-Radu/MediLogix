@@ -39,4 +39,11 @@ global using MediLogix.Application.Commands.OperatingTerms;
 global using MediLogix.Application.Commands.PeriodicVerification;
 global using MediLogix.Application.Commands.Piece;
 global using MediLogix.Application.Commands.WarrantyAndMaintenance;
+global using MediLogix.Application.Common.Mappings;
+global using MediLogix.WebApi.Middleware;
+global using MediLogix.Domain.Repositories;
+global using MediLogix.Infrastructure.Persistence.Repositories;
+global using Microsoft.OpenApi.Models;
+global using MediLogix.WebApi.AppConfigurations;
+global using MediLogix.WebApi.Data;
 
