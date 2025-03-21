@@ -7,6 +7,10 @@ internal sealed class EmployeeConfiguration : IEntityTypeConfiguration<Employee>
         builder
             .HasKey(e => e.Id);
         builder
+            .HasOne(e => e.User)
+            .WithOne(u => u.Employee)
+            .HasForeignKey<Employee>(e => e.UserId);
+        builder
             .Property(e => e.FirstName)
             .IsRequired()
             .HasMaxLength(15);
@@ -17,7 +21,7 @@ internal sealed class EmployeeConfiguration : IEntityTypeConfiguration<Employee>
         builder
             .Property(e => e.Email)
             .IsRequired()
-            .HasMaxLength(20);
+            .HasMaxLength(50);
         builder
             .Property(e => e.PhoneNumber)
             .IsRequired()

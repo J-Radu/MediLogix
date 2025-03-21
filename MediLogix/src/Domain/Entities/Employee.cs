@@ -10,7 +10,7 @@ public class Employee : EntityBase
     public string City { get; set; }
     public int Age { get; set; }
     public string JobName { get; set; }
-    public Guid UserId { get; set; }
+    public string UserId { get; set; }
     public virtual ApplicationUser User { get; set; }
     public virtual ICollection<Device>? Devices { get; set; }
     public virtual ICollection<Activity>? Activities { get; set; }
