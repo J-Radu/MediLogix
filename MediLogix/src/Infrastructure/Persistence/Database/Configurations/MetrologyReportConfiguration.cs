@@ -28,9 +28,9 @@ public class MetrologyReportConfiguration : IEntityTypeConfiguration<MetrologyRe
             .Property(x => x.DocumentType)
             .HasMaxLength(10)
             .IsRequired();
-        builder
-            .Property(e => e.DocumentData)
-            .HasColumnType("varbinary(max) FILESTREAM");
+        // builder
+        //     .Property(e => e.DocumentData)
+        //     .HasColumnType("varbinary(max) FILESTREAM");
         builder
             .Property(x => x.IssueDate)
             .IsRequired();

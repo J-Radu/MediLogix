@@ -10,5 +10,5 @@ public class EmployeeDto : EntityBase
     public string City { get; set; }
     public int Age { get; set; }
     public string JobName { get; set; }
-    public Guid UserId { get; set; }
+    public string UserId { get; set; }
 }

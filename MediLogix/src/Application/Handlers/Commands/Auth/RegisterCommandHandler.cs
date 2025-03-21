@@ -42,7 +42,7 @@ public class RegisterCommandHandler(UserManager<ApplicationUser> userManager, IJ
             };
         }
 
-        await userManager.AddToRoleAsync(user, "Employee");
+        await userManager.AddToRoleAsync(user, "User");
 
         var roles = await userManager.GetRolesAsync(user);
         var accessToken = jwtService.GenerateAccessToken(user, roles);
