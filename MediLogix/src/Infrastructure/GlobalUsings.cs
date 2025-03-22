@@ -13,4 +13,6 @@ global using Microsoft.IdentityModel.Tokens;
 global using MediLogix.Infrastructure.Persistence.Interfaces;
 global using MediLogix.Domain.Repositories;
 global using MediLogix.Infrastructure.Persistence.Database;
-
+global using Microsoft.Extensions.Logging;
+global using System.Net;
+global using System.Net.Mail;

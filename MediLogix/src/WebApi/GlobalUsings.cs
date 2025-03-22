@@ -46,4 +46,5 @@ global using MediLogix.Infrastructure.Persistence.Repositories;
 global using Microsoft.OpenApi.Models;
 global using MediLogix.WebApi.AppConfigurations;
 global using MediLogix.WebApi.Data;
+global using MediLogix.Application.Commands.Employee;
 

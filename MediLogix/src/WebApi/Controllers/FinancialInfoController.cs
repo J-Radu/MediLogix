@@ -2,6 +2,7 @@ namespace MediLogix.WebApi.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize(Roles = "Admin,User")]
 public class FinancialInfoController(IMediator mediator) : ControllerBase
 {
     [HttpGet("{id:guid}")]

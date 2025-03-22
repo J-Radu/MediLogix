@@ -1,10 +1,8 @@
-using MediLogix.Application.Commands.Activity;
-using MediLogix.Application.Commands.Employee;
-
 namespace MediLogix.WebApi.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize(Roles = "Admin,User")]
 public class EmployeeController(IMediator mediator) : ControllerBase
 {
     [HttpGet]
