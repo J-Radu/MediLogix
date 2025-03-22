@@ -28,3 +28,5 @@ global using MediLogix.Application.Commands.PeriodicVerification;
 global using MediLogix.Application.Commands.Piece;
 global using MediLogix.Application.Commands.WarrantyAndMaintenance;
 global using Mapster;
+global using System.ComponentModel.DataAnnotations;
+global using MediLogix.Application.DTOs.Common;

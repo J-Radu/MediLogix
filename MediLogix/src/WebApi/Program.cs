@@ -18,6 +18,7 @@ builder.Services.AddIdentityServices();
 builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddMappings();
 builder.Services.AddScoped<IActivityLogRepository, ActivityLogRepository>();
+builder.Services.AddScoped<IEmailService, EmailService>();
 
 var app = builder.Build();
 

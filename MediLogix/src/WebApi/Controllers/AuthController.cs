@@ -73,4 +73,57 @@ public class AuthController(IMediator mediator, UserManager<ApplicationUser> use
 
         return NoContent();
     }
+
+    [HttpPost("request-password-reset")]
+    public async Task<IActionResult> RequestPasswordReset([FromBody] RequestPasswordResetDto requestDto)
+    {
+        var command = new RequestPasswordResetCommand { Email = requestDto.Email };
+        var result = await mediator.Send(command);
+
+        if (!result.IsSuccessful)
+            return BadRequest(result);
+
+        return Ok(result);
+    }
+
+    [HttpPost("reset-password")]
+    public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDto resetDto)
+    {
+        var command = new ResetPasswordCommand 
+        { 
+            Email = resetDto.Email,
+            Token = resetDto.Token,
+            NewPassword = resetDto.NewPassword
+        };
+        
+        var result = await mediator.Send(command);
+
+        if (!result.IsSuccessful)
+            return BadRequest(result);
+
+        return Ok(result);
+    }
+    
+    [Authorize]
+    [HttpPost("change-password")]
+    public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordDto changePasswordDto)
+    {
+        if (User.Identity == null) return Unauthorized();
+        var username = User.Identity.Name;
+        if (username == null) return Unauthorized();
+        
+        var command = new ChangePasswordCommand 
+        { 
+            Username = username,
+            CurrentPassword = changePasswordDto.CurrentPassword,
+            NewPassword = changePasswordDto.NewPassword
+        };
+        
+        var result = await mediator.Send(command);
+
+        if (!result.IsSuccessful)
+            return BadRequest(result);
+
+        return Ok(result);
+    }
 } 
