@@ -11,6 +11,7 @@ public sealed class CreateWarrantyAndMaintenanceCommandHandler(
         
         var warrantyAndMaintenance = new Domain.Entities.WarrantyAndMaintenance
         {
+            Id = request.Id,
             ContractNumber = request.ContractNumber,
             MaintenanceContract = request.MaintenanceContract,
             Provider = request.Provider,

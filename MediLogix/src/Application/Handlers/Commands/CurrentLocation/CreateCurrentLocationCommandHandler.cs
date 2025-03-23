@@ -11,6 +11,7 @@ public sealed class CreateCurrentLocationCommandHandler(
         
         var currentLocation = new Domain.Entities.CurrentLocation
         {
+            Id = request.Id,
             IMS = request.IMS,
             Department = request.Department,
             Localization = request.Localization,

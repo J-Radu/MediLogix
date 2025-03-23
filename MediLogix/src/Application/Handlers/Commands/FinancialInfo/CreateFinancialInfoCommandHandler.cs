@@ -11,6 +11,7 @@ public sealed class CreateFinancialInfoCommandHandler(
         
         var financialInfo = new Domain.Entities.FinancialInfo
         {
+            Id = request.Id,
             AcquisitionPrice = request.AcquisitionPrice,
             Currency = request.Currency
         };

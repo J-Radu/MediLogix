@@ -1,6 +1,6 @@
 namespace MediLogix.Application.Commands.OperatingTerms;
 
-public sealed class CreateOperatingTermsCommand : IRequest<OperatingTermsDto>
+public sealed class CreateOperatingTermsCommand : EntityBase, IRequest<OperatingTermsDto>
 {
     public DateOnly ProductionDate { get; set; }
     public DateOnly DeliveryDate { get; set; }

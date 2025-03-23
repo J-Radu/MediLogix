@@ -11,6 +11,7 @@ public sealed class CreatePieceCommandHandler(
         
         var piece = new Domain.Entities.Piece
         {
+            Id = request.Id,
             DeviceId = request.DeviceId,
             Name = request.Name,
             Price = request.Price,

@@ -1,6 +1,6 @@
 namespace MediLogix.Application.Commands.PeriodicVerification;
 
-public sealed class CreatePeriodicVerificationCommand : IRequest<PeriodicVerificationDto>
+public sealed class CreatePeriodicVerificationCommand : EntityBase, IRequest<PeriodicVerificationDto>
 {
     public bool IsSubject { get; set; }
     public TimeSpan VerificationPeriodicity { get; set; }

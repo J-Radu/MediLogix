@@ -1,6 +1,6 @@
 namespace MediLogix.Application.Commands.Activity;
 
-public sealed class CreateActivityCommand : IRequest<ActivityDto>
+public sealed class CreateActivityCommand : EntityBase, IRequest<ActivityDto>
 {
     public Guid EmployeeId { get; set; }
     public DateOnly EventDate { get; set; }

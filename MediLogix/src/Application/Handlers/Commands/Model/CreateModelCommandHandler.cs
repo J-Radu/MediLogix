@@ -11,6 +11,7 @@ public sealed class CreateModelCommandHandler(
         
         var model = new Domain.Entities.Model
         {
+            Id = request.Id,
             DmModel = request.DmModel,
             GMDN = request.GMDN,
             Manufacturer = request.Manufacturer,

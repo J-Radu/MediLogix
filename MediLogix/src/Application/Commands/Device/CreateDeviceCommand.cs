@@ -1,6 +1,6 @@
 namespace MediLogix.Application.Commands.Device;
 
-public sealed class CreateDeviceCommand : IRequest<DeviceDto>
+public sealed class CreateDeviceCommand : EntityBase, IRequest<DeviceDto>
 {
     // Model
     public string DmModel { get; set; }

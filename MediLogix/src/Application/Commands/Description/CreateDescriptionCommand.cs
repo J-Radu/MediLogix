@@ -1,6 +1,6 @@
 namespace MediLogix.Application.Commands.Description;
 
-public sealed class CreateDescriptionCommand : IRequest<DescriptionDto>
+public sealed class CreateDescriptionCommand : EntityBase, IRequest<DescriptionDto>
 {
     public string DeviceName { get; set; }
     public string DeviceDescription { get; set; }
