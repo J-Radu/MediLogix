@@ -11,6 +11,7 @@ public sealed class CreateMetrologyReportCommandHandler(
         
         var metrologyReport = new Domain.Entities.MetrologyReport
         {
+            Id = request.Id,
             DeviceId = request.DeviceId,
             ReportNumber = request.ReportNumber,
             IssueDate = request.IssueDate,

@@ -1,6 +1,6 @@
 namespace MediLogix.Application.Commands.MetrologyReport;
 
-public sealed class CreateMetrologyReportCommand : IRequest<MetrologyReportDto>
+public sealed class CreateMetrologyReportCommand : EntityBase, IRequest<MetrologyReportDto>
 {
     public Guid DeviceId { get; set; }
     public string ReportNumber { get; set; }

@@ -1,6 +1,6 @@
 namespace MediLogix.Application.Commands.Piece;
 
-public sealed class CreatePieceCommand : IRequest<PieceDto>
+public sealed class CreatePieceCommand : EntityBase, IRequest<PieceDto>
 {
     public Guid DeviceId { get; set; }
     public string Name { get; set; }

@@ -9,6 +9,7 @@ public sealed class CreateActivityCommandHandler(IDbContextFactory<MediLogixDbCo
 
         var activity = new Domain.Entities.Activity
         {
+            Id = request.Id,
             EmployeeId = request.EmployeeId,
             EventDate = request.EventDate,
             EventName = request.EventName,

@@ -9,6 +9,7 @@ public sealed class CreateEmployeeCommandHandler(IDbContextFactory<MediLogixDbCo
 
         var employee = new Domain.Entities.Employee
         {
+            Id = request.Id,
             FirstName = request.FirstName,
             LastName = request.LastName,
             Email = request.Email,

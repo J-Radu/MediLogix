@@ -1,6 +1,6 @@
 namespace MediLogix.Application.Commands.CurrentLocation;
 
-public sealed class CreateCurrentLocationCommand : IRequest<CurrentLocationDto>
+public sealed class CreateCurrentLocationCommand : EntityBase, IRequest<CurrentLocationDto>
 {
     public string IMS { get; set; }
     public string Department { get; set; }

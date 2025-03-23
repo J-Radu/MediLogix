@@ -11,6 +11,7 @@ public sealed class CreatePeriodicVerificationCommandHandler(
         
         var periodicVerification = new Domain.Entities.PeriodicVerification
         {
+            Id = request.Id,
             IsSubject = request.IsSubject,
             VerificationPeriodicity = request.VerificationPeriodicity,
             CertificateNumber = request.CertificateNumber,

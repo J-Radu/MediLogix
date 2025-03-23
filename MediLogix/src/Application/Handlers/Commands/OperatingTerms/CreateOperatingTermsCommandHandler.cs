@@ -11,6 +11,7 @@ public sealed class CreateOperatingTermsCommandHandler(
         
         var operatingTerms = new Domain.Entities.OperatingTerms
         {
+            Id = request.Id,
             ProductionDate = request.ProductionDate,
             DeliveryDate = request.DeliveryDate,
             InstallationDate = request.InstallationDate,

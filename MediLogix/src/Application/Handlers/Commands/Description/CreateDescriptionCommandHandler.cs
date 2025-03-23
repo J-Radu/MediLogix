@@ -11,6 +11,7 @@ public sealed class CreateDescriptionCommandHandler(
         
         var description = new Domain.Entities.Description
         {
+            Id = request.Id,
             DeviceName = request.DeviceName,
             DeviceDescription = request.DeviceDescription,
             DeviceNumber = request.DeviceNumber,

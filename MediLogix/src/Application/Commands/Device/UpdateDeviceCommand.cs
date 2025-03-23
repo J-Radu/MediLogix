@@ -1,9 +1,7 @@
 namespace MediLogix.Application.Commands.Device;
 
-public sealed class UpdateDeviceCommand : IRequest<DeviceDto>
+public sealed class UpdateDeviceCommand : EntityBase, IRequest<DeviceDto>
 {
-    public Guid Id { get; set; }
-    
     // Model
     public string DmModel { get; set; }
     public string GMDN { get; set; }

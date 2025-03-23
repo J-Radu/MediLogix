@@ -11,6 +11,7 @@ public sealed class CreateFailureCommandHandler(
         
         var failure = new Domain.Entities.Failure
         {
+            Id = request.Id,
             DeviceId = request.DeviceId,
             FailureType = request.FailureType,
             FailureDescription = request.FailureDescription

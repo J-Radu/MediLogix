@@ -1,6 +1,6 @@
 namespace MediLogix.Application.Commands.WarrantyAndMaintenance;
 
-public sealed class CreateWarrantyAndMaintenanceCommand : IRequest<WarrantyAndMaintenanceDto>
+public sealed class CreateWarrantyAndMaintenanceCommand : EntityBase, IRequest<WarrantyAndMaintenanceDto>
 {
     public string ContractNumber { get; set; }
     public string MaintenanceContract { get; set; }

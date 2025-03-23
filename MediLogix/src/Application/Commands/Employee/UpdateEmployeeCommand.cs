@@ -1,8 +1,7 @@
 namespace MediLogix.Application.Commands.Employee;
 
-public sealed class UpdateEmployeeCommand : IRequest<EmployeeDto>
+public sealed class UpdateEmployeeCommand : EntityBase, IRequest<EmployeeDto>
 {
-    public Guid Id { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public string Email { get; set; }

@@ -1,6 +1,6 @@
 namespace MediLogix.Application.Commands.Employee;
 
-public sealed class CreateEmployeeCommand : IRequest<EmployeeDto>
+public sealed class CreateEmployeeCommand : EntityBase, IRequest<EmployeeDto>
 {
     public string FirstName { get; set; }
     public string LastName { get; set; }
