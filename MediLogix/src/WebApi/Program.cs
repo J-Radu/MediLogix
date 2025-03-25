@@ -8,7 +8,7 @@ builder.Services.AddSwaggerDocumentation();
 builder.Services.AddApplicationServices();
 
 // Configure authentication and authorization
-builder.Services.AddBasicJwtAuth(builder.Configuration);
+builder.Services.AddJwtAuthentication(builder.Configuration);
 builder.Services.AddIdentityServices();
 
 // Register services

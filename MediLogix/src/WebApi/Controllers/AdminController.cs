@@ -10,7 +10,7 @@ public class AdminController(IActivityLogRepository activityLogRepository, UserM
     public async Task<ActionResult<IEnumerable<ActivityLog>>> GetLogs(
         [FromQuery] DateTime? fromDate,
         [FromQuery] DateTime? toDate,
-        [FromQuery] string userId)
+        [FromQuery] string? userId)
     {
         var logs = await activityLogRepository.GetLogsAsync(fromDate, toDate, userId);
         return Ok(logs);
