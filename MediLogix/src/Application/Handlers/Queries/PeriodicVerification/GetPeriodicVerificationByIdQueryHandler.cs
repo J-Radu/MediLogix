@@ -21,7 +21,7 @@ public sealed class GetPeriodicVerificationByIdQueryHandler(IDbContextFactory<Me
         {
             Id = periodicVerification.Id,
             IsSubject = periodicVerification.IsSubject,
-            VerificationPeriodicity = periodicVerification.VerificationPeriodicity,
+            VerificationPeriodicityMonths = periodicVerification.VerificationPeriodicityMonths,
             CertificateNumber = periodicVerification.CertificateNumber,
             LastVerificationDate = periodicVerification.LastVerificationDate,
             IssueDate = periodicVerification.IssueDate

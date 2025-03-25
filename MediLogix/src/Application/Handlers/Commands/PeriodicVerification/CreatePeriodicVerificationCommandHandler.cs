@@ -13,7 +13,7 @@ public sealed class CreatePeriodicVerificationCommandHandler(
         {
             Id = request.Id,
             IsSubject = request.IsSubject,
-            VerificationPeriodicity = request.VerificationPeriodicity,
+            VerificationPeriodicityMonths = request.VerificationPeriodicityMonths,
             CertificateNumber = request.CertificateNumber,
             LastVerificationDate = request.LastVerificationDate,
             IssueDate = request.IssueDate

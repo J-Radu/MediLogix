@@ -66,7 +66,7 @@ public sealed class GetAllFullDevicesQueryHandler(IDbContextFactory<MediLogixDbC
                 // PeriodicVerification
                 PeriodicVerificationId = device.PeriodicVerificationId,
                 IsSubject = device.PeriodicVerification?.IsSubject ?? false,
-                VerificationPeriodicity = device.PeriodicVerification?.VerificationPeriodicity ?? default,
+                VerificationPeriodicityMonths = device.PeriodicVerification?.VerificationPeriodicityMonths ?? 0,
                 CertificateNumber = device.PeriodicVerification?.CertificateNumber,
                 LastVerificationDate = device.PeriodicVerification?.LastVerificationDate ?? default,
                 IssueDate = device.PeriodicVerification?.IssueDate ?? default,

@@ -15,7 +15,7 @@ public sealed class UpdatePeriodicVerificationCommandHandler(
             throw new Exception("Periodic verification not found");
 
         periodicVerification.IsSubject = request.IsSubject;
-        periodicVerification.VerificationPeriodicity = request.VerificationPeriodicity;
+        periodicVerification.VerificationPeriodicityMonths = request.VerificationPeriodicityMonths;
         periodicVerification.CertificateNumber = request.CertificateNumber;
         periodicVerification.LastVerificationDate = request.LastVerificationDate;
         periodicVerification.IssueDate = request.IssueDate;

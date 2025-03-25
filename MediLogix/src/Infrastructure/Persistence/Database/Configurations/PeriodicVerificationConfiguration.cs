@@ -10,7 +10,7 @@ internal sealed class PeriodicVerificationConfiguration : IEntityTypeConfigurati
             .Property(e => e.IsSubject)
             .IsRequired();
         builder
-            .Property(e => e.VerificationPeriodicity)
+            .Property(e => e.VerificationPeriodicityMonths)
             .IsRequired();
         builder
             .Property(e => e.CertificateNumber)
