@@ -62,7 +62,7 @@ public class ActivityController(IMediator mediator) : ControllerBase
     [HttpDelete("all")]
     [Authorize(Roles = "Admin")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public async Task<ActionResult> DeleteAll()
+    public async Task<ActionResult> DeleteAllActivities()
     {
         await mediator.Send(new DeleteAllActivitiesCommand());
         return NoContent();

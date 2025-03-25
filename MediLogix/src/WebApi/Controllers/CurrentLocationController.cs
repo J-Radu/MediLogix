@@ -31,7 +31,7 @@ public class CurrentLocationController(IMediator mediator) : ControllerBase
     [HttpPost]
     [ProducesResponseType(typeof(Guid), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<Guid>> Create([FromBody] CreateCurrentLocationCommand command)
+    public async Task<ActionResult<Guid>> CreateCurrentLocation([FromBody] CreateCurrentLocationCommand command)
     {
         var result = await mediator.Send(command);
         return CreatedAtAction(nameof(GetCurrentLocationById), new { id = result }, result);
