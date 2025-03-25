@@ -1,6 +1,6 @@
 namespace MediLogix.Domain.Entities;
 
-public class MetrologyReport : EntityBase
+public sealed class MetrologyReport : EntityBase
 {
     public Guid DeviceId { get; set; }
     public string ReportNumber { get; set; }
@@ -15,5 +15,5 @@ public class MetrologyReport : EntityBase
     public byte[]? DocumentData { get; set; }
     public long DocumentSize { get; set; }    
     public DateTime UploadDate { get; set; }
-    public virtual Device? Device { get; set; }
+    public Device? Device { get; set; }
 } 
