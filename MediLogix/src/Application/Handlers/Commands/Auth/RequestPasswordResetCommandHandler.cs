@@ -8,13 +8,13 @@ public class RequestPasswordResetCommandHandler(UserManager<ApplicationUser> use
         var user = await userManager.FindByEmailAsync(request.Email);
         if (user == null)
         {
-            return new ResultDto { IsSuccessful = true, Message = "Dacă emailul există, un link de resetare a fost trimis." };
+            return new ResultDto { IsSuccessful = true, Message = "If the email exists, a reset link has been sent." };
         }
 
         var token = await userManager.GeneratePasswordResetTokenAsync(user);
         
         await emailService.SendPasswordResetEmailAsync(user.Email, token);
 
-        return new ResultDto { IsSuccessful = true, Message = "Dacă emailul există, un link de resetare a fost trimis." };
+        return new ResultDto { IsSuccessful = true, Message = "If the email exists, a reset link has been sent." };
     }
 } 

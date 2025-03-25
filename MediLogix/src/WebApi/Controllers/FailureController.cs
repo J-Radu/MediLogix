@@ -50,6 +50,7 @@ public class FailureController(IMediator mediator) : ControllerBase
     }
 
     [HttpDelete("{id:guid}")]
+    [Authorize(Roles = "Admin")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult> DeleteFailure(Guid id)
@@ -59,6 +60,7 @@ public class FailureController(IMediator mediator) : ControllerBase
     }
 
     [HttpDelete("all")]
+    [Authorize(Roles = "Admin")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<ActionResult> DeleteAll()
     {
