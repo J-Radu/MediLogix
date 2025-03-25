@@ -15,7 +15,7 @@ internal static class AdminInitializer
                 if (!await roleManager.RoleExistsAsync(role))
                 {
                     await roleManager.CreateAsync(new IdentityRole(role));
-                    logger.LogInformation("Rolul {Role} a fost creat cu succes.", role);
+                    logger.LogInformation("{Role} role has been successfully created.", role);
                 }
 
             var adminEmail = "schiopu.radu7@gmail.com";
@@ -36,19 +36,18 @@ internal static class AdminInitializer
                 if (result.Succeeded)
                 {
                     await userManager.AddToRoleAsync(admin, "Admin");
-                    logger.LogInformation("Contul de administrator cu email {Email} a fost creat cu succes.",
-                        adminEmail);
+                    logger.LogInformation("Administrator account with email {Email} has been successfully created.", adminEmail);
                 }
                 else
                 {
                     var errors = string.Join(", ", result.Errors.Select(e => e.Description));
-                    logger.LogError("Nu s-a putut crea contul de administrator: {Errors}", errors);
+                    logger.LogError("Could not create administrator account: {Errors}", errors);
                 }
             }
         }
         catch (Exception ex)
         {
-            logger.LogError(ex, "A apărut o eroare la inițializarea contului de administrator.");
+            logger.LogError(ex, "An error occurred when initializing the administrator account.");
         }
     }
 }

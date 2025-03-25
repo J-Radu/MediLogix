@@ -1,9 +1,9 @@
 namespace MediLogix.Application.Handlers.Queries.Device;
 
-public sealed class GetDeviceByIdQueryHandler(IDbContextFactory<MediLogixDbContext> contextFactory)
-    : IRequestHandler<GetDeviceByIdQuery, DeviceDto>
+public sealed class GetFullDeviceByIdQueryHandler(IDbContextFactory<MediLogixDbContext> contextFactory)
+    : IRequestHandler<GetFullDeviceByIdQuery, FullDeviceDto>
 {
-    public async Task<DeviceDto> Handle(GetDeviceByIdQuery request, CancellationToken cancellationToken)
+    public async Task<FullDeviceDto> Handle(GetFullDeviceByIdQuery request, CancellationToken cancellationToken)
     {
         await using var context = await contextFactory.CreateDbContextAsync(cancellationToken);
         var device = await context.Devices
@@ -25,27 +25,31 @@ public sealed class GetDeviceByIdQueryHandler(IDbContextFactory<MediLogixDbConte
             return null;
         }
 
-        return new DeviceDto
+        return new FullDeviceDto
         {
             Id = device.Id,
                 
             // Model
+            ModelId = device.ModelId,
             DmModel = device.Model?.DmModel,
             GMDN = device.Model?.GMDN,
             Manufacturer = device.Model?.Manufacturer,
             Country = device.Model?.Country,
                 
             // Description
+            DescriptionId = device.DescriptionId,
             DeviceName = device.Description?.DeviceName,
             DeviceDescription = device.Description?.DeviceDescription,
             DeviceNumber = device.Description?.DeviceNumber,
             InventoryNumber = device.Description?.InventoryNumber,
                 
             // FinancialInfo
+            FinancialInfoId = device.FinancialInfoId,
             AcquisitionPrice = device.FinancialInfo?.AcquisitionPrice ?? 0,
             Currency = device.FinancialInfo?.Currency,
                 
             // OperatingTerms
+            OperatingTermsId = device.OperatingTermsId,
             ProductionDate = device.OperatingTerms?.ProductionDate ?? default,
             DeliveryDate = device.OperatingTerms?.DeliveryDate ?? default,
             InstallationDate = device.OperatingTerms?.InstallationDate ?? default,
@@ -53,6 +57,7 @@ public sealed class GetDeviceByIdQueryHandler(IDbContextFactory<MediLogixDbConte
             ExploitationTime = device.OperatingTerms?.ExploitationTime ?? default,
                 
             // WarrantyAndMaintenance
+            WarrantyAndMaintenanceId = device.WarrantyAndMaintenanceId,
             ContractNumber = device.WarrantyAndMaintenance?.ContractNumber,
             MaintenanceContract = device.WarrantyAndMaintenance?.MaintenanceContract,
             Provider = device.WarrantyAndMaintenance?.Provider,
@@ -60,6 +65,7 @@ public sealed class GetDeviceByIdQueryHandler(IDbContextFactory<MediLogixDbConte
             ExpirationDate = device.WarrantyAndMaintenance?.ExpirationDate ?? default,
                 
             // PeriodicVerification
+            PeriodicVerificationId = device.PeriodicVerificationId,
             IsSubject = device.PeriodicVerification?.IsSubject ?? false,
             VerificationPeriodicity = device.PeriodicVerification?.VerificationPeriodicity ?? default,
             CertificateNumber = device.PeriodicVerification?.CertificateNumber,
@@ -67,6 +73,7 @@ public sealed class GetDeviceByIdQueryHandler(IDbContextFactory<MediLogixDbConte
             IssueDate = device.PeriodicVerification?.IssueDate ?? default,
                 
             // CurrentLocation
+            CurrentLocationId = device.CurrentLocationId,
             IMS = device.CurrentLocation?.IMS,
             Department = device.CurrentLocation?.Department,
             Localization = device.CurrentLocation?.Localization,
@@ -83,10 +90,12 @@ public sealed class GetDeviceByIdQueryHandler(IDbContextFactory<MediLogixDbConte
             }).ToList() ?? new List<PieceDto>(),
 
             // Failure
+            FailureId = device.Failures?.FirstOrDefault()?.Id,
             FailureType = device.Failures?.FirstOrDefault()?.FailureType,
             FailureDescription = device.Failures?.FirstOrDefault()?.FailureDescription,
             
             // MetrologyReport
+            MetrologyReportId = device.MetrologyReports?.FirstOrDefault()?.Id,
             DeviceId = device.Id,
             ReportNumber = device.MetrologyReports?.FirstOrDefault()?.ReportNumber,
             ReportIssueDate = device.MetrologyReports?.FirstOrDefault()?.IssueDate ?? default,

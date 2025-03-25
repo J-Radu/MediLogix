@@ -1,9 +1,9 @@
 namespace MediLogix.Application.Handlers.Commands.Device;
 
-public sealed class UpdateDeviceCommandHandler(IDbContextFactory<MediLogixDbContext> contextFactory, IMapper mapper)
-    : IRequestHandler<UpdateDeviceCommand, DeviceDto>
+public sealed class UpdateFullDeviceCommandHandler(IDbContextFactory<MediLogixDbContext> contextFactory, IMapper mapper)
+    : IRequestHandler<UpdateFullDeviceCommand, FullDeviceDto>
 {
-    public async Task<DeviceDto> Handle(UpdateDeviceCommand request, CancellationToken cancellationToken)
+    public async Task<FullDeviceDto> Handle(UpdateFullDeviceCommand request, CancellationToken cancellationToken)
     {
         var context = await contextFactory.CreateDbContextAsync(cancellationToken);
 
@@ -101,6 +101,6 @@ public sealed class UpdateDeviceCommandHandler(IDbContextFactory<MediLogixDbCont
 
         await context.SaveChangesAsync(cancellationToken);
 
-        return mapper.Map<DeviceDto>(device);
+        return mapper.Map<FullDeviceDto>(device);
     }
 } 
