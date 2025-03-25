@@ -53,7 +53,7 @@ public static class SwaggerConfiguration
             
             // UI improvements
             options.DocExpansion(DocExpansion.None);
-            options.DefaultModelsExpandDepth(-1); // Hide models section by default
+            options.DefaultModelsExpandDepth(-1); 
             options.EnableDeepLinking();
             options.DisplayRequestDuration();
             options.EnablePersistAuthorization();
