@@ -31,7 +31,7 @@ public class DescriptionController(IMediator mediator) : ControllerBase
     [HttpPost]
     [ProducesResponseType(typeof(Guid), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<Guid>> Create([FromBody] CreateDescriptionCommand command)
+    public async Task<ActionResult<Guid>> CreateDescription([FromBody] CreateDescriptionCommand command)
     {
         var result = await mediator.Send(command);
         return CreatedAtAction(nameof(GetDescriptionById), new { id = result }, result);

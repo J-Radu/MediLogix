@@ -62,7 +62,7 @@ public class FailureController(IMediator mediator) : ControllerBase
     [HttpDelete("all")]
     [Authorize(Roles = "Admin")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public async Task<ActionResult> DeleteAll()
+    public async Task<ActionResult> DeleteAllFailures()
     {
         await mediator.Send(new DeleteAllFailuresCommand());
         return NoContent();
