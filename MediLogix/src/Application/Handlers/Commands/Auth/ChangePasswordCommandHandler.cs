@@ -8,7 +8,7 @@ public class ChangePasswordCommandHandler(UserManager<ApplicationUser> userManag
         var user = await userManager.FindByNameAsync(request.Username);
         if (user == null)
         {
-            return new ResultDto { IsSuccessful = false, Message = "Utilizatorul nu a fost găsit." };
+            return new ResultDto { IsSuccessful = false, Message = "User not found." };
         }
 
         var result = await userManager.ChangePasswordAsync(user, request.CurrentPassword, request.NewPassword);
@@ -18,11 +18,11 @@ public class ChangePasswordCommandHandler(UserManager<ApplicationUser> userManag
             return new ResultDto 
             { 
                 IsSuccessful = false, 
-                Message = "Schimbarea parolei a eșuat.",
+                Message = "Password change failed.",
                 Errors = result.Errors.Select(e => e.Description).ToList()
             };
         }
 
-        return new ResultDto { IsSuccessful = true, Message = "Parola a fost schimbată cu succes." };
+        return new ResultDto { IsSuccessful = true, Message = "Password successfully changed." };
     }
 } 

@@ -6,7 +6,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddDatabaseServices(builder.Configuration);
 
 builder.Services.AddSwaggerDocumentation();
-
 builder.Services.AddApplicationServices();
 
 // Add JWT Configuration

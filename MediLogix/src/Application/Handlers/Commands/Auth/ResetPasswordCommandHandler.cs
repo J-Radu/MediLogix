@@ -1,34 +1,28 @@
 namespace MediLogix.Application.Handlers.Commands.Auth;
 
-public class ResetPasswordCommandHandler : IRequestHandler<ResetPasswordCommand, ResultDto>
+public class ResetPasswordCommandHandler(UserManager<ApplicationUser> userManager)
+    : IRequestHandler<ResetPasswordCommand, ResultDto>
 {
-    private readonly UserManager<ApplicationUser> _userManager;
-
-    public ResetPasswordCommandHandler(UserManager<ApplicationUser> userManager)
-    {
-        _userManager = userManager;
-    }
-
     public async Task<ResultDto> Handle(ResetPasswordCommand request, CancellationToken cancellationToken)
     {
-        var user = await _userManager.FindByEmailAsync(request.Email);
+        var user = await userManager.FindByEmailAsync(request.Email);
         if (user == null)
         {
-            return new ResultDto { IsSuccessful = false, Message = "Utilizatorul nu a fost găsit." };
+            return new ResultDto { IsSuccessful = false, Message = "User not found." };
         }
 
-        var result = await _userManager.ResetPasswordAsync(user, request.Token, request.NewPassword);
+        var result = await userManager.ResetPasswordAsync(user, request.Token, request.NewPassword);
 
         if (!result.Succeeded)
         {
             return new ResultDto 
             { 
                 IsSuccessful = false, 
-                Message = "Resetarea parolei a eșuat.",
+                Message = "Password reset failed.",
                 Errors = result.Errors.Select(e => e.Description).ToList()
             };
         }
 
-        return new ResultDto { IsSuccessful = true, Message = "Parola a fost resetată cu succes." };
+        return new ResultDto { IsSuccessful = true, Message = "Password successfully reset." };
     }
 } 

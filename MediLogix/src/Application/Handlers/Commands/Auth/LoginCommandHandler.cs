@@ -11,7 +11,7 @@ public class LoginCommandHandler(UserManager<ApplicationUser> userManager, IJwtS
             return new AuthResponseDto
             {
                 IsSuccessful = false,
-                Errors = new[] { "Invalid credentials" }
+                Errors = ["Invalid credentials"]
             };
         }
 
@@ -21,7 +21,7 @@ public class LoginCommandHandler(UserManager<ApplicationUser> userManager, IJwtS
             return new AuthResponseDto
             {
                 IsSuccessful = false,
-                Errors = new[] { "Invalid credentials" }
+                Errors = ["Invalid credentials"]
             };
         }
 
