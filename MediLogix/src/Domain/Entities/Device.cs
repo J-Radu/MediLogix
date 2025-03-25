@@ -2,15 +2,14 @@
 
 public sealed class Device : EntityBase
 {
-    public Guid EmployeeId { get; set; }
-    public Guid DescriptionId { get; set; }
-    public Guid ModelId { get; set; }
-    public Guid WarrantyAndMaintenanceId { get; set; }
-    public Guid PeriodicVerificationId { get; set; }
-    public Guid OperatingTermsId { get; set; }
-    public Guid FinancialInfoId { get; set; }
-    public Guid CurrentLocationId { get; set; }
-    public Guid FailureId { get; set; }
+    public Guid? EmployeeId { get; set; }
+    public Guid? DescriptionId { get; set; }
+    public Guid? ModelId { get; set; }
+    public Guid? WarrantyAndMaintenanceId { get; set; }
+    public Guid? PeriodicVerificationId { get; set; }
+    public Guid? OperatingTermsId { get; set; }
+    public Guid? FinancialInfoId { get; set; }
+    public Guid? CurrentLocationId { get; set; }
     public Employee? Employee { get; set; }
     public Description? Description { get; set; }
     public Model? Model { get; set; }

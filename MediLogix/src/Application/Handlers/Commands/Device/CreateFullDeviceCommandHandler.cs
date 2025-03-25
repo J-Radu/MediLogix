@@ -69,7 +69,7 @@ public sealed class CreateFullDeviceCommandHandler(IDbContextFactory<MediLogixDb
         {
             Id = request.PeriodicVerificationId,
             IsSubject = request.IsSubject,
-            VerificationPeriodicity = request.VerificationPeriodicity,
+            VerificationPeriodicityMonths = request.VerificationPeriodicityMonths,
             CertificateNumber = request.CertificateNumber,
             LastVerificationDate = request.LastVerificationDate,
             IssueDate = request.IssueDate

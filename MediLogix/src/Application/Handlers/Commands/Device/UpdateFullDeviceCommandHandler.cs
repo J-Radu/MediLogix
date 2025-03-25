@@ -54,7 +54,7 @@ public sealed class UpdateFullDeviceCommandHandler(IDbContextFactory<MediLogixDb
 
         // Update PeriodicVerification
         device.PeriodicVerification.IsSubject = request.IsSubject;
-        device.PeriodicVerification.VerificationPeriodicity = request.VerificationPeriodicity;
+        device.PeriodicVerification.VerificationPeriodicityMonths = request.VerificationPeriodicityMonths;
         device.PeriodicVerification.CertificateNumber = request.CertificateNumber;
         device.PeriodicVerification.LastVerificationDate = request.LastVerificationDate;
         device.PeriodicVerification.IssueDate = request.IssueDate;

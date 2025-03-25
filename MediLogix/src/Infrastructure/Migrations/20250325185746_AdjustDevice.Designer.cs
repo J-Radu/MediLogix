@@ -4,6 +4,7 @@ using MediLogix.Infrastructure.Persistence.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MediLogix.Infrastructure.Migrations
 {
     [DbContext(typeof(MediLogixDbContext))]
-    partial class MediLogixDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250325185746_AdjustDevice")]
+    partial class AdjustDevice
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -156,61 +159,54 @@ namespace MediLogix.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("CurrentLocationId")
+                    b.Property<Guid>("CurrentLocationId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("DescriptionId")
+                    b.Property<Guid>("DescriptionId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("EmployeeId")
+                    b.Property<Guid>("EmployeeId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("FinancialInfoId")
+                    b.Property<Guid>("FinancialInfoId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("ModelId")
+                    b.Property<Guid>("ModelId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("OperatingTermsId")
+                    b.Property<Guid>("OperatingTermsId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("PeriodicVerificationId")
+                    b.Property<Guid>("PeriodicVerificationId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("WarrantyAndMaintenanceId")
+                    b.Property<Guid>("WarrantyAndMaintenanceId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CurrentLocationId")
-                        .IsUnique()
-                        .HasFilter("[CurrentLocationId] IS NOT NULL");
+                        .IsUnique();
 
                     b.HasIndex("DescriptionId")
-                        .IsUnique()
-                        .HasFilter("[DescriptionId] IS NOT NULL");
+                        .IsUnique();
 
                     b.HasIndex("EmployeeId");
 
                     b.HasIndex("FinancialInfoId")
-                        .IsUnique()
-                        .HasFilter("[FinancialInfoId] IS NOT NULL");
+                        .IsUnique();
 
                     b.HasIndex("ModelId")
-                        .IsUnique()
-                        .HasFilter("[ModelId] IS NOT NULL");
+                        .IsUnique();
 
                     b.HasIndex("OperatingTermsId")
-                        .IsUnique()
-                        .HasFilter("[OperatingTermsId] IS NOT NULL");
+                        .IsUnique();
 
                     b.HasIndex("PeriodicVerificationId")
-                        .IsUnique()
-                        .HasFilter("[PeriodicVerificationId] IS NOT NULL");
+                        .IsUnique();
 
                     b.HasIndex("WarrantyAndMaintenanceId")
-                        .IsUnique()
-                        .HasFilter("[WarrantyAndMaintenanceId] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("Devices");
                 });
@@ -761,42 +757,50 @@ namespace MediLogix.Infrastructure.Migrations
                     b.HasOne("MediLogix.Domain.Entities.CurrentLocation", "CurrentLocation")
                         .WithOne("Device")
                         .HasForeignKey("MediLogix.Domain.Entities.Device", "CurrentLocationId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("MediLogix.Domain.Entities.Description", "Description")
                         .WithOne("Device")
                         .HasForeignKey("MediLogix.Domain.Entities.Device", "DescriptionId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("MediLogix.Domain.Entities.Employee", "Employee")
                         .WithMany("Devices")
                         .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("MediLogix.Domain.Entities.FinancialInfo", "FinancialInfo")
                         .WithOne("Device")
                         .HasForeignKey("MediLogix.Domain.Entities.Device", "FinancialInfoId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("MediLogix.Domain.Entities.Model", "Model")
                         .WithOne("Device")
                         .HasForeignKey("MediLogix.Domain.Entities.Device", "ModelId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("MediLogix.Domain.Entities.OperatingTerms", "OperatingTerms")
                         .WithOne("Device")
                         .HasForeignKey("MediLogix.Domain.Entities.Device", "OperatingTermsId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("MediLogix.Domain.Entities.PeriodicVerification", "PeriodicVerification")
                         .WithOne("Device")
                         .HasForeignKey("MediLogix.Domain.Entities.Device", "PeriodicVerificationId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("MediLogix.Domain.Entities.WarrantyAndMaintenance", "WarrantyAndMaintenance")
                         .WithOne("Device")
                         .HasForeignKey("MediLogix.Domain.Entities.Device", "WarrantyAndMaintenanceId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("CurrentLocation");
 
