@@ -1,52 +1,46 @@
-﻿namespace MediLogix.WebApi.AppConfigurations;
+﻿using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerUI;
+
+namespace MediLogix.WebApi.AppConfigurations;
 
 public static class SwaggerConfiguration
 {
     public static IServiceCollection AddSwaggerDocumentation(this IServiceCollection services)
     {
-        services.AddSwaggerGen(options =>
+        services.AddSwaggerGen(c =>
         {
-            options.SwaggerDoc("v1", new OpenApiInfo
-            {
-                Title = "MediLogix API",
+            // Basic API information
+            c.SwaggerDoc("v1", new OpenApiInfo 
+            { 
+                Title = "MediLogix API", 
                 Version = "v1",
-                Description = "API pentru sistemul MediLogix",
-                Contact = new OpenApiContact
-                {
-                    Name = "MediLogix Team"
-                }
+                Description = "Medical equipment management and maintenance API"
             });
-
-            // Definirea schemei de securitate JWT
-            options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+            
+            // Improved JWT authentication configuration
+            var securityScheme = new OpenApiSecurityScheme
             {
-                Description = "JWT Authorization header folosind schema Bearer. Introduceți 'Bearer' [spațiu] și apoi token-ul în câmpul de mai jos. Exemplu: 'Bearer 12345abcdef'",
                 Name = "Authorization",
+                Description = "Enter JWT token only (without Bearer prefix)",
                 In = ParameterLocation.Header,
-                Type = SecuritySchemeType.ApiKey,
-                Scheme = "Bearer"
-            });
-
-            // Activarea autorizării globale pentru toate endpoint-urile
-            options.AddSecurityRequirement(new OpenApiSecurityRequirement
-            {
+                Type = SecuritySchemeType.Http,
+                Scheme = "bearer",
+                BearerFormat = "JWT",
+                Reference = new OpenApiReference
                 {
-                    new OpenApiSecurityScheme
-                    {
-                        Reference = new OpenApiReference
-                        {
-                            Type = ReferenceType.SecurityScheme,
-                            Id = "Bearer"
-                        },
-                        Scheme = "oauth2",
-                        Name = "Bearer",
-                        In = ParameterLocation.Header
-                    },
-                    new List<string>()
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
                 }
+            };
+            
+            c.AddSecurityDefinition("Bearer", securityScheme);
+            
+            c.AddSecurityRequirement(new OpenApiSecurityRequirement
+            {
+                { securityScheme, new List<string>() }
             });
         });
-
+        
         return services;
     }
 
@@ -56,8 +50,13 @@ public static class SwaggerConfiguration
         app.UseSwaggerUI(options =>
         {
             options.SwaggerEndpoint("/swagger/v1/swagger.json", "MediLogix API V1");
-            options.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);
+            
+            // UI improvements
+            options.DocExpansion(DocExpansion.None);
+            options.DefaultModelsExpandDepth(-1); // Hide models section by default
             options.EnableDeepLinking();
+            options.DisplayRequestDuration();
+            options.EnablePersistAuthorization();
         });
 
         return app;

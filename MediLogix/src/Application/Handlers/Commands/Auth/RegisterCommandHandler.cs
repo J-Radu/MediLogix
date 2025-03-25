@@ -49,7 +49,7 @@ public class RegisterCommandHandler(UserManager<ApplicationUser> userManager, IJ
         var refreshToken = jwtService.GenerateRefreshToken();
 
         user.RefreshToken = refreshToken;
-        user.RefreshTokenExpiryTime = DateTime.Now.AddDays(90);
+        user.RefreshTokenExpiryTime = DateTime.Now.AddMinutes(15);
         await userManager.UpdateAsync(user);
 
         return new AuthResponseDto
@@ -57,7 +57,7 @@ public class RegisterCommandHandler(UserManager<ApplicationUser> userManager, IJ
             IsSuccessful = true,
             AccessToken = accessToken,
             RefreshToken = refreshToken,
-            ExpiresIn = DateTime.Now.AddDays(30)
+            ExpiresIn = DateTime.Now.AddMinutes(15)
         };
     }
 } 

@@ -47,4 +47,6 @@ global using Microsoft.OpenApi.Models;
 global using MediLogix.WebApi.AppConfigurations;
 global using MediLogix.WebApi.Data;
 global using MediLogix.Application.Commands.Employee;
+global using System.Security.Claims;
+global using System.IdentityModel.Tokens.Jwt;
 

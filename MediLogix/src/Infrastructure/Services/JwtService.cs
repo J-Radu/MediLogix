@@ -1,37 +1,39 @@
 namespace MediLogix.Infrastructure.Services;
 
-public class JwtService : IJwtService
+public class JwtService(IConfiguration configuration) : IJwtService
 {
-    private readonly IConfiguration _configuration;
-
-    public JwtService(IConfiguration configuration)
-    {
-        _configuration = configuration;
-    }
-
     public string GenerateAccessToken(ApplicationUser user, IList<string> roles)
     {
         var claims = new List<Claim>
         {
             new(ClaimTypes.NameIdentifier, user.Id),
+            new(ClaimTypes.Name, user.UserName ?? string.Empty),
             new(ClaimTypes.Email, user.Email)
         };
         
         claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
 
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"]));
         var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-        var expires = DateTime.Now.AddMinutes(Convert.ToDouble(_configuration["JWT:ExpirationInMinutes"]));
+        var expires = DateTime.Now.AddMinutes(Convert.ToDouble(configuration["JWT:ExpirationInMinutes"]));
 
         var token = new JwtSecurityToken(
-            issuer: _configuration["JWT:ValidIssuer"],
-            audience: _configuration["JWT:ValidAudience"],
+            issuer: configuration["JWT:ValidIssuer"],
+            audience: configuration["JWT:ValidAudience"],
             claims: claims,
             expires: expires,
             signingCredentials: credentials
         );
 
-        return new JwtSecurityTokenHandler().WriteToken(token);
+        var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
+        
+        // Verify the token can be read back immediately
+        if (!new JwtSecurityTokenHandler().CanReadToken(tokenString))
+        {
+            throw new InvalidOperationException("Generated token cannot be read as JWT");
+        }
+        
+        return tokenString;
     }
 
     public string GenerateRefreshToken()
@@ -49,10 +51,10 @@ public class JwtService : IJwtService
             ValidateAudience = true,
             ValidateIssuer = true,
             ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"])),
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"])),
             ValidateLifetime = false,
-            ValidIssuer = _configuration["JWT:ValidIssuer"],
-            ValidAudience = _configuration["JWT:ValidAudience"]
+            ValidIssuer = configuration["JWT:ValidIssuer"],
+            ValidAudience = configuration["JWT:ValidAudience"]
         };
 
         var tokenHandler = new JwtSecurityTokenHandler();
