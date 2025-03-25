@@ -1,8 +1,14 @@
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Microsoft.IdentityModel.JsonWebTokens;
+
 namespace MediLogix.WebApi.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class AuthController(IMediator mediator, UserManager<ApplicationUser> userManager, IJwtService jwtService)
+public class AuthController(IMediator mediator, UserManager<ApplicationUser> userManager, IJwtService jwtService, IConfiguration configuration)
     : ControllerBase
 {
     [HttpPost("register")]
@@ -125,5 +131,43 @@ public class AuthController(IMediator mediator, UserManager<ApplicationUser> use
             return BadRequest(result);
 
         return Ok(result);
+    }
+    
+    [Authorize]
+    [HttpGet("test-auth")]
+    public IActionResult TestAuth()
+    {
+        var claims = User.Claims.Select(c => new { c.Type, c.Value }).ToList();
+        var roles = User.Claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).ToList();
+        
+        return Ok(new { 
+            IsAuthenticated = User.Identity?.IsAuthenticated ?? false,
+            UserName = User.Identity?.Name,
+            AuthenticationType = User.Identity?.AuthenticationType,
+            Claims = claims,
+            Roles = roles
+        });
+    }
+
+    [HttpGet("debug-token")]
+    public IActionResult GetDebugToken()
+    {
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"]));
+        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+        
+        var token = new JwtSecurityToken(
+            claims: new[] { 
+                new Claim(ClaimTypes.Name, "debug-user"),
+                new Claim(ClaimTypes.NameIdentifier, Guid.NewGuid().ToString()),
+                new Claim(ClaimTypes.Role, "User")
+            },
+            expires: DateTime.Now.AddDays(1),
+            signingCredentials: creds
+        );
+        
+        return Ok(new { 
+            token = new JwtSecurityTokenHandler().WriteToken(token),
+            expires = DateTime.Now.AddDays(1)
+        });
     }
 } 

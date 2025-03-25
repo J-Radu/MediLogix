@@ -8,7 +8,7 @@ public class ActivityLoggingMiddleware(RequestDelegate next, ILogger<ActivityLog
             !context.Request.Path.StartsWithSegments("/api/health"))
         {
             var userId = context.User?.Identity?.IsAuthenticated == true
-                ? context.User.FindFirst("sub")?.Value ?? "anonymous"
+                ? context.User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "anonymous"
                 : "anonymous";
 
             var originalBodyStream = context.Response.Body;

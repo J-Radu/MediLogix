@@ -11,17 +11,55 @@ public static class JwtConfiguration
             options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
         }).AddJwtBearer(options =>
         {
-            options.SaveToken = true;
-            options.RequireHttpsMetadata = false;
             options.TokenValidationParameters = new TokenValidationParameters()
             {
-                ValidateIssuer = true,
-                ValidateAudience = true,
-                ValidAudience = configuration["JWT:ValidAudience"],
-                ValidIssuer = configuration["JWT:ValidIssuer"],
+                ValidateIssuer = false,
+                ValidateAudience = false,
+                ValidateLifetime = false,
+                ValidateIssuerSigningKey = true,
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"])),
-                ValidateLifetime = true,
-                ClockSkew = TimeSpan.Zero
+                ClockSkew = TimeSpan.Zero,
+                RequireSignedTokens = true
+            };
+            
+            options.Events = new JwtBearerEvents
+            {
+                OnMessageReceived = context =>
+                {
+                    var authHeader = context.Request.Headers["Authorization"].ToString();
+                    Console.WriteLine($"Auth header: {authHeader}");
+                    
+                    if (authHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
+                    {
+                        context.Token = authHeader.Substring("Bearer ".Length).Trim();
+                        Console.WriteLine($"Extracted token: {context.Token.Substring(0, 20)}...");
+                    }
+                    else
+                    {
+                        Console.WriteLine("No Bearer token found");
+                    }
+                    
+                    return Task.CompletedTask;
+                },
+                OnAuthenticationFailed = context =>
+                {
+                    Console.WriteLine($"AUTH FAILED EXCEPTION: {context.Exception.GetType().Name}: {context.Exception.Message}");
+                    if (context.Exception.InnerException != null)
+                    {
+                        Console.WriteLine($"INNER EXCEPTION: {context.Exception.InnerException.Message}");
+                    }
+                    return Task.CompletedTask;
+                },
+                OnTokenValidated = context =>
+                {
+                    Console.WriteLine($"TOKEN VALIDATED SUCCESSFULLY!");
+                    return Task.CompletedTask;
+                },
+                OnChallenge = context =>
+                {
+                    Console.WriteLine($"CHALLENGE ISSUED: {context.Error}, {context.ErrorDescription}");
+                    return Task.CompletedTask;
+                }
             };
         });
 
