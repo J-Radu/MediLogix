@@ -1,6 +1,6 @@
 ﻿namespace MediLogix.Domain.Entities;
 
-public class Activity : EntityBase
+public sealed class Activity : EntityBase
 {
     public Guid EmployeeId { get; set; }
     public DateOnly EventDate { get; set; }
@@ -8,5 +8,5 @@ public class Activity : EntityBase
     public bool IsCompleted { get; set; }
     public bool IsSuccessful { get; set; }
     public string? Notes { get; set; }
-    public virtual Employee? Employee { get; set; }
+    public Employee? Employee { get; set; }
 }

@@ -1,8 +1,8 @@
 ﻿namespace MediLogix.Domain.Entities;
 
-public class FinancialInfo : EntityBase
+public sealed class FinancialInfo : EntityBase
 {
     public double AcquisitionPrice { get; set; }
     public string Currency { get; set; }
-    public virtual Device? Device { get; set; }
+    public Device? Device { get; set; }
 }
