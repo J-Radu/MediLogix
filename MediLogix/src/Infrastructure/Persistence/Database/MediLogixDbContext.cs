@@ -4,8 +4,8 @@ public sealed class MediLogixDbContext : IdentityDbContext, IMediLogixDbContext
 {
     public MediLogixDbContext(DbContextOptions<MediLogixDbContext> options) : base(options)
     {
-        // Database.EnsureDeleted();
-        // Database.EnsureCreated();
+        /*Database.EnsureDeleted();
+        Database.EnsureCreated();*/
     }
     
     public DbSet<Activity> Activities { get; set; }

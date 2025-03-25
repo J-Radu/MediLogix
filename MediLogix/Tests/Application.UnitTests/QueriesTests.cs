@@ -17,19 +17,19 @@ public class QueriesTests
     public async Task GetAllDevicesQuery_WhenDevicesExists_ReturnListOfDevices()
     {
         // Arrange
-        var devices = _fixture.CreateMany<DeviceDto>(3).ToList();
+        var devices = _fixture.CreateMany<FullDeviceDto>(3).ToList();
         var mediatorMock = new Mock<IMediator>();
-        mediatorMock.Setup(m => m.Send(It.IsAny<GetAllDevicesQuery>(), It.IsAny<CancellationToken>()))
+        mediatorMock.Setup(m => m.Send(It.IsAny<GetAllFullDevicesQuery>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(devices);
 
         // Act
-        var result = await mediatorMock.Object.Send(new GetAllDevicesQuery(), CancellationToken.None);
+        var result = await mediatorMock.Object.Send(new GetAllFullDevicesQuery(), CancellationToken.None);
 
         // Assert
         result.Should().NotBeNull();
         result.Should().HaveCount(3);
         result.Should().BeEquivalentTo(devices);
-        mediatorMock.Verify(m => m.Send(It.IsAny<GetAllDevicesQuery>(), It.IsAny<CancellationToken>()), Times.Once);
+        mediatorMock.Verify(m => m.Send(It.IsAny<GetAllFullDevicesQuery>(), It.IsAny<CancellationToken>()), Times.Once);
     }
 
     [Fact]

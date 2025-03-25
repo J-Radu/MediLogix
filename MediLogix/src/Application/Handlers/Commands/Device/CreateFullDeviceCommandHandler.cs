@@ -1,9 +1,9 @@
 namespace MediLogix.Application.Handlers.Commands.Device;
 
-public sealed class CreateDeviceCommandHandler(IDbContextFactory<MediLogixDbContext> contextFactory, IMapper mapper)
-    : IRequestHandler<CreateDeviceCommand, DeviceDto>
+public sealed class CreateFullDeviceCommandHandler(IDbContextFactory<MediLogixDbContext> contextFactory, IMapper mapper)
+    : IRequestHandler<CreateFullDeviceCommand, FullDeviceDto>
 {
-    public async Task<DeviceDto> Handle(CreateDeviceCommand request, CancellationToken cancellationToken)
+    public async Task<FullDeviceDto> Handle(CreateFullDeviceCommand request, CancellationToken cancellationToken)
     {
         await using var context = await contextFactory.CreateDbContextAsync(cancellationToken);
 
@@ -12,6 +12,7 @@ public sealed class CreateDeviceCommandHandler(IDbContextFactory<MediLogixDbCont
         // Create and associate Model
         var model = new Domain.Entities.Model
         {
+            Id = request.ModelId,
             DmModel = request.DmModel,
             GMDN = request.GMDN,
             Manufacturer = request.Manufacturer,
@@ -22,6 +23,7 @@ public sealed class CreateDeviceCommandHandler(IDbContextFactory<MediLogixDbCont
         // Create and associate Description
         var description = new Domain.Entities.Description
         {
+            Id = request.DescriptionId,
             DeviceName = request.DeviceName,
             DeviceDescription = request.DeviceDescription,
             DeviceNumber = request.DeviceNumber,
@@ -32,6 +34,7 @@ public sealed class CreateDeviceCommandHandler(IDbContextFactory<MediLogixDbCont
         // Create and associate FinancialInfo
         var financialInfo = new Domain.Entities.FinancialInfo
         {
+            Id = request.FinancialInfoId,
             AcquisitionPrice = request.AcquisitionPrice,
             Currency = request.Currency
         };
@@ -40,6 +43,7 @@ public sealed class CreateDeviceCommandHandler(IDbContextFactory<MediLogixDbCont
         // Create and associate OperatingTerms
         var operatingTerms = new Domain.Entities.OperatingTerms
         {
+            Id = request.OperatingTermsId,
             ProductionDate = request.ProductionDate,
             DeliveryDate = request.DeliveryDate,
             InstallationDate = request.InstallationDate,
@@ -51,6 +55,7 @@ public sealed class CreateDeviceCommandHandler(IDbContextFactory<MediLogixDbCont
         // Create and associate WarrantyAndMaintenance
         var warrantyAndMaintenance = new Domain.Entities.WarrantyAndMaintenance
         {
+            Id = request.WarrantyAndMaintenanceId,
             ContractNumber = request.ContractNumber,
             MaintenanceContract = request.MaintenanceContract,
             Provider = request.Provider,
@@ -62,6 +67,7 @@ public sealed class CreateDeviceCommandHandler(IDbContextFactory<MediLogixDbCont
         // Create and associate PeriodicVerification
         var periodicVerification = new Domain.Entities.PeriodicVerification
         {
+            Id = request.PeriodicVerificationId,
             IsSubject = request.IsSubject,
             VerificationPeriodicity = request.VerificationPeriodicity,
             CertificateNumber = request.CertificateNumber,
@@ -73,6 +79,7 @@ public sealed class CreateDeviceCommandHandler(IDbContextFactory<MediLogixDbCont
         // Create and associate CurrentLocation
         var currentLocation = new Domain.Entities.CurrentLocation
         {
+            Id = request.CurrentLocationId,
             IMS = request.IMS,
             Department = request.Department,
             Localization = request.Localization,
@@ -85,6 +92,7 @@ public sealed class CreateDeviceCommandHandler(IDbContextFactory<MediLogixDbCont
         {
             var failure = new Domain.Entities.Failure
             {
+                Id = request.FailureId,
                 FailureType = request.FailureType,
                 FailureDescription = request.FailureDescription
             };
@@ -94,6 +102,7 @@ public sealed class CreateDeviceCommandHandler(IDbContextFactory<MediLogixDbCont
         // Create and associate MetrologyReport
         var metrologyReport = new Domain.Entities.MetrologyReport
         {
+            Id = request.MetrologyReportId,
             ReportNumber = request.ReportNumber,
             IssueDate = request.ReportIssueDate,
             ExpirationDate = request.ReportExpirationDate,
@@ -112,6 +121,6 @@ public sealed class CreateDeviceCommandHandler(IDbContextFactory<MediLogixDbCont
         await context.Devices.AddAsync(device, cancellationToken);
         await context.SaveChangesAsync(cancellationToken);
 
-        return mapper.Map<DeviceDto>(device);
+        return mapper.Map<FullDeviceDto>(device);
     }
 } 

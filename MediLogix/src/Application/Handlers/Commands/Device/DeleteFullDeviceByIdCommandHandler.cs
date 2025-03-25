@@ -1,9 +1,9 @@
 ﻿namespace MediLogix.Application.Handlers.Commands.Device;
 
 public sealed class DeleteDeviceByIdCommandHandler(IDbContextFactory<MediLogixDbContext> contextFactory)
-    : IRequestHandler<DeleteDeviceByIdCommand, Unit>
+    : IRequestHandler<DeleteFullDeviceByIdCommand, Unit>
 {
-    public async Task<Unit> Handle(DeleteDeviceByIdCommand request, CancellationToken cancellationToken)
+    public async Task<Unit> Handle(DeleteFullDeviceByIdCommand request, CancellationToken cancellationToken)
     {
         await using var context = await contextFactory.CreateDbContextAsync(cancellationToken);
         var device = await context.Devices

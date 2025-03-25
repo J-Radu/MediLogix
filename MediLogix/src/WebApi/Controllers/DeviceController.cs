@@ -6,20 +6,20 @@ namespace MediLogix.WebApi.Controllers;
 public class DeviceController(IMediator mediator) : ControllerBase
 {
     [HttpGet]
-    [ProducesResponseType(typeof(List<DeviceDto>), StatusCodes.Status200OK)]
-    public async Task<ActionResult<List<DeviceDto>>> GetAll()
+    [ProducesResponseType(typeof(List<FullDeviceDto>), StatusCodes.Status200OK)]
+    public async Task<ActionResult<List<FullDeviceDto>>> GetAll()
     {
-        var query = new GetAllDevicesQuery();
+        var query = new GetAllFullDevicesQuery();
         var result = await mediator.Send(query);
         return Ok(result);
     }
     
     [HttpGet("{id:guid}")]
-    [ProducesResponseType(typeof(DeviceDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(FullDeviceDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<DeviceDto>> GetById(Guid id)
+    public async Task<ActionResult<FullDeviceDto>> GetById(Guid id)
     {
-        var query = new GetDeviceByIdQuery { Id = id };
+        var query = new GetFullDeviceByIdQuery { Id = id };
         var result = await mediator.Send(query);
         
         if (result == null)
@@ -31,7 +31,7 @@ public class DeviceController(IMediator mediator) : ControllerBase
     [HttpPost]
     [ProducesResponseType(typeof(Guid), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<Guid>> CreateDevice([FromBody] CreateDeviceCommand command)
+    public async Task<ActionResult<Guid>> CreateDevice([FromBody] CreateFullDeviceCommand command)
     {
         var result = await mediator.Send(command);
         return CreatedAtAction(nameof(GetById), new { id = result }, result);
@@ -40,7 +40,7 @@ public class DeviceController(IMediator mediator) : ControllerBase
     [HttpPut("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult> UpdateDevice(Guid id, [FromBody] UpdateDeviceCommand command)
+    public async Task<ActionResult> UpdateDevice(Guid id, [FromBody] UpdateFullDeviceCommand command)
     {
         if (id != command.Id)
             return BadRequest();
@@ -54,7 +54,7 @@ public class DeviceController(IMediator mediator) : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult> DeleteDevice(Guid id)
     {
-        await mediator.Send(new DeleteDeviceByIdCommand{ Id = id });
+        await mediator.Send(new DeleteFullDeviceByIdCommand{ Id = id });
         return NoContent();
     }
 
@@ -62,7 +62,7 @@ public class DeviceController(IMediator mediator) : ControllerBase
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<ActionResult> DeleteAllDevices()
     {
-        await mediator.Send(new DeleteAllDevicesCommand());
+        await mediator.Send(new DeleteAllFullDevicesCommand());
         return NoContent();
     }
 } 

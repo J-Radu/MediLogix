@@ -60,21 +60,21 @@ public class EmailService : IEmailService
             <body>
                 <div class='container'>
                     <div class='header'>
-                        <h2>Resetare Parolă MediLogix</h2>
+                        <h2>Reset password MediLogix</h2>
                     </div>
                     <div class='content'>
-                        <p>Dragă utilizator,</p>
-                        <p>Am primit o cerere de resetare a parolei pentru contul tău. Pentru a-ți reseta parola, 
-                           te rugăm să faci click pe butonul de mai jos:</p>
-                        <p><a href='{resetUrl}' class='button'>Resetează Parola</a></p>
-                        <p>Sau copiază și lipește următorul link în browser:</p>
+                        <p>Dear user,</p>
+                        <p>We received a request to reset the password for your account. To reset your password, please 
+                                click the button below:</p>
+                        <p><a href='{resetUrl}' class='button'>Reset Password</a></p>
+                        <p>Or copy and paste the following link into your browser:</p>
                         <p>{resetUrl}</p>
-                        <p>Acest link va expira în 24 de ore. Dacă nu ai solicitat resetarea parolei, 
-                           te rugăm să ignori acest email.</p>
-                        <p>Cu stimă,<br>Echipa MediLogix</p>
+                        <p>This link will expire in 24 hours. If you have not requested a password reset, 
+                                please ignore this email.</p>
+                        <p>With respect,<br>MediLogix team</p>
                     </div>
                     <div class='footer'>
-                        <p>Acest email a fost trimis automat. Te rugăm să nu răspunzi la acest email.</p>
+                        <p>This email was sent automatically. Please do not reply to this email.</p>
                     </div>
                 </div>
             </body>
@@ -102,11 +102,11 @@ public class EmailService : IEmailService
             mailMessage.To.Add(to);
 
             await client.SendMailAsync(mailMessage);
-            _logger.LogInformation("Email trimis cu succes către {Email}", to);
+            _logger.LogInformation("Email successfully sent to {Email}", to);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Eroare la trimiterea email-ului către {Email}: {Message}", to, ex.Message);
+            _logger.LogError(ex, "Error sending email to {Email}: {Message}", to, ex.Message);
             throw;
         }
     }
