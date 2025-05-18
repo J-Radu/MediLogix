@@ -65,40 +65,6 @@ public sealed class UpdateFullDeviceCommandHandler(IDbContextFactory<MediLogixDb
         device.CurrentLocation.Localization = request.Localization;
         device.CurrentLocation.Status = request.Status;
 
-        // Update Failure
-        var failure = device.Failures.FirstOrDefault();
-        if (failure != null)
-        {
-            failure.FailureType = request.FailureType;
-            failure.FailureDescription = request.FailureDescription;
-        }
-        else if (!string.IsNullOrEmpty(request.FailureType) || !string.IsNullOrEmpty(request.FailureDescription))
-        {
-            device.Failures.Add(new Domain.Entities.Failure
-            {
-                FailureType = request.FailureType,
-                FailureDescription = request.FailureDescription
-            });
-        }
-
-        // Update MetrologyReport
-        var metrologyReport = device.MetrologyReports.FirstOrDefault();
-        if (metrologyReport != null)
-        {
-            metrologyReport.ReportNumber = request.ReportNumber;
-            metrologyReport.IssueDate = request.ReportIssueDate;
-            metrologyReport.ExpirationDate = request.ReportExpirationDate;
-            metrologyReport.IssuingAuthority = request.IssuingAuthority;
-            metrologyReport.Findings = request.Findings;
-            metrologyReport.Recommendations = request.Recommendations;
-            metrologyReport.IsApproved = request.IsApproved;
-            metrologyReport.DocumentName = request.DocumentName;
-            metrologyReport.DocumentType = request.DocumentType;
-            metrologyReport.DocumentData = request.DocumentData;
-            metrologyReport.DocumentSize = request.DocumentSize;
-            metrologyReport.UploadDate = request.UploadDate;
-        }
-
         await context.SaveChangesAsync(cancellationToken);
 
         return mapper.Map<FullDeviceDto>(device);

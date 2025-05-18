@@ -52,14 +52,8 @@ public sealed class FullDeviceDto : EntityBase
     public string Localization { get; set; }
     public string Status { get; set; }
     
-    //Failure
-    public Guid? FailureId { get; set; }
-    //deviceid
-    public string? FailureType { get; set; }
-    public string? FailureDescription { get; set; }
-    
     //MetrologyReport
-    public Guid? MetrologyReportId { get; set; }
+    /*public Guid? MetrologyReportId { get; set; }
     public Guid DeviceId { get; set; }
     public string ReportNumber { get; set; }
     public DateTime ReportIssueDate { get; set; }
@@ -72,8 +66,11 @@ public sealed class FullDeviceDto : EntityBase
     public string DocumentType { get; set; }  
     public byte[] DocumentData { get; set; }
     public long DocumentSize { get; set; }    
-    public DateTime UploadDate { get; set; }
+    public DateTime UploadDate { get; set; }*/
     
     //Piece
-    public ICollection<PieceDto> PieceDtos { get; set; }
+    public ICollection<PieceDto>? PieceDtos { get; set; }
+    
+    //Failure
+    public ICollection<FailureDto>? FailureDtos { get; set; }
 }

@@ -29,12 +29,17 @@ public class DeviceController(IMediator mediator) : ControllerBase
     }
 
     [HttpPost]
-    [ProducesResponseType(typeof(Guid), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(FullDeviceDto), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<Guid>> CreateFullDevice([FromBody] CreateFullDeviceCommand command)
+    public async Task<ActionResult<FullDeviceDto>> CreateFullDevice([FromBody] CreateFullDeviceCommand command)
     {
         var result = await mediator.Send(command);
-        return CreatedAtAction(nameof(GetFullDeviceById), new { id = result }, result);
+        
+        return CreatedAtAction(
+            actionName: nameof(GetFullDeviceById),
+            controllerName: "Device",
+            routeValues: new { id = result.Id },
+            value: result);
     }
 
     [HttpPut("{id:guid}")]
