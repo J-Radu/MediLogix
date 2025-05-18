@@ -25,7 +25,7 @@ internal sealed class EmployeeConfiguration : IEntityTypeConfiguration<Employee>
         builder
             .Property(e => e.PhoneNumber)
             .IsRequired()
-            .HasMaxLength(10);
+            .HasMaxLength(15);
         builder
             .Property(e => e.Address)
             .IsRequired()

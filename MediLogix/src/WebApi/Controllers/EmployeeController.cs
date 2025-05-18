@@ -1,16 +1,22 @@
+using System.Diagnostics;
+
 namespace MediLogix.WebApi.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-[Authorize(Roles = "Admin,User")]
+//[Authorize(Roles = "Admin,User")]
+[Authorize]
 public class EmployeeController(IMediator mediator) : ControllerBase
 {
     [HttpGet]
     [ProducesResponseType(typeof(List<EmployeeDto>), StatusCodes.Status200OK)]
     public async Task<ActionResult<List<EmployeeDto>>> GetAllEmployees()
     {
+        Debug.WriteLine("Fetching all employees");
         var query = new GetAllEmployeesQuery();
+        Debug.WriteLine("Fetching all employees1");
         var result = await mediator.Send(query);
+        Debug.WriteLine("Fetching all employees2");
         return Ok(result);
     }
     

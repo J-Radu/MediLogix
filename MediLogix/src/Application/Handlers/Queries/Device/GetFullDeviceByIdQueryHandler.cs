@@ -90,12 +90,16 @@ public sealed class GetFullDeviceByIdQueryHandler(IDbContextFactory<MediLogixDbC
             }).ToList() ?? new List<PieceDto>(),
 
             // Failure
-            FailureId = device.Failures?.FirstOrDefault()?.Id,
-            FailureType = device.Failures?.FirstOrDefault()?.FailureType,
-            FailureDescription = device.Failures?.FirstOrDefault()?.FailureDescription,
+            FailureDtos = device.Failures?.Select(f => new FailureDto
+            {
+                Id = f.Id,
+                DeviceId = f.DeviceId,
+                FailureType = f.FailureType,
+                FailureDescription = f.FailureDescription,
+            }).ToList() ?? new List<FailureDto>(),
             
             // MetrologyReport
-            MetrologyReportId = device.MetrologyReports?.FirstOrDefault()?.Id,
+            /*MetrologyReportId = device.MetrologyReports?.FirstOrDefault()?.Id,
             DeviceId = device.Id,
             ReportNumber = device.MetrologyReports?.FirstOrDefault()?.ReportNumber,
             ReportIssueDate = device.MetrologyReports?.FirstOrDefault()?.IssueDate ?? default,
@@ -108,7 +112,7 @@ public sealed class GetFullDeviceByIdQueryHandler(IDbContextFactory<MediLogixDbC
             DocumentType = device.MetrologyReports?.FirstOrDefault()?.DocumentType,
             DocumentData = device.MetrologyReports?.FirstOrDefault()?.DocumentData,
             DocumentSize = device.MetrologyReports?.FirstOrDefault()?.DocumentSize ?? 0,
-            UploadDate = device.MetrologyReports?.FirstOrDefault()?.UploadDate ?? default
+            UploadDate = device.MetrologyReports?.FirstOrDefault()?.UploadDate ?? default*/
         };
     }
 } 

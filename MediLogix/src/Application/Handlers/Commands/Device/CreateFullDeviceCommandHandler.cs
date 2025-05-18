@@ -87,37 +87,6 @@ public sealed class CreateFullDeviceCommandHandler(IDbContextFactory<MediLogixDb
         };
         device.CurrentLocation = currentLocation;
 
-        // Create and associate Failure if exists
-        if (!string.IsNullOrEmpty(request.FailureType) || !string.IsNullOrEmpty(request.FailureDescription))
-        {
-            var failure = new Domain.Entities.Failure
-            {
-                Id = request.FailureId,
-                FailureType = request.FailureType,
-                FailureDescription = request.FailureDescription
-            };
-            device.Failures.Add(failure);
-        }
-
-        // Create and associate MetrologyReport
-        var metrologyReport = new Domain.Entities.MetrologyReport
-        {
-            Id = request.MetrologyReportId,
-            ReportNumber = request.ReportNumber,
-            IssueDate = request.ReportIssueDate,
-            ExpirationDate = request.ReportExpirationDate,
-            IssuingAuthority = request.IssuingAuthority,
-            Findings = request.Findings,
-            Recommendations = request.Recommendations,
-            IsApproved = request.IsApproved,
-            DocumentName = request.DocumentName,
-            DocumentType = request.DocumentType,
-            DocumentData = request.DocumentData,
-            DocumentSize = request.DocumentSize,
-            UploadDate = request.UploadDate
-        };
-        device.MetrologyReports.Add(metrologyReport);
-
         await context.Devices.AddAsync(device, cancellationToken);
         await context.SaveChangesAsync(cancellationToken);
 

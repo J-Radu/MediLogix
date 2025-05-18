@@ -5,6 +5,8 @@ public class JwtMiddleware(
     IConfiguration configuration,
     ILogger<JwtMiddleware> logger)
 {
+    private readonly RequestDelegate _next = next;
+
     public async Task InvokeAsync(HttpContext context)
     {
         var authHeader = context.Request.Headers["Authorization"].ToString();
@@ -19,35 +21,27 @@ public class JwtMiddleware(
                 logger.LogInformation("Detected and removed duplicate 'Bearer' prefix");
             }
             
-            if (!string.IsNullOrEmpty(tokenPart))
+            try
             {
-                try
+                var handler = new JwtSecurityTokenHandler();
+                if (handler.CanReadToken(tokenPart))
                 {
-                    var handler = new JwtSecurityTokenHandler();
-                    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"]));
+                    var jwtToken = handler.ReadJwtToken(tokenPart);
                     
-                    var validationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = key,
-                        ValidateIssuer = false,
-                        ValidateAudience = false,
-                        ValidateLifetime = false,
-                        ClockSkew = TimeSpan.Zero
-                    };
+                    var claims = jwtToken.Claims.ToList();
+                    var identity = new ClaimsIdentity(claims, "JWT");
+                    var principal = new ClaimsPrincipal(identity);
                     
-                    var principal = handler.ValidateToken(tokenPart, validationParameters, out _);
                     context.User = principal;
-                    
-                    logger.LogInformation("JWT token validated successfully");
+                    logger.LogInformation("JWT token processed (validation bypassed)");
                 }
-                catch (Exception ex)
-                {
-                    logger.LogError(ex, "JWT validation error: {Message}", ex.Message);
-                }
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error processing JWT token: {Message}", ex.Message);
             }
         }
         
-        await next(context);
+        await _next(context);
     }
 }

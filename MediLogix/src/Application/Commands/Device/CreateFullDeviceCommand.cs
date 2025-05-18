@@ -1,6 +1,6 @@
 namespace MediLogix.Application.Commands.Device;
 
-public sealed class CreateFullDeviceCommand : EntityBase, IRequest<FullDeviceDto>
+public sealed class CreateFullDeviceCommand : IRequest<FullDeviceDto>
 {
     //Model
     public Guid ModelId { get; set; }
@@ -52,12 +52,6 @@ public sealed class CreateFullDeviceCommand : EntityBase, IRequest<FullDeviceDto
     public string Localization { get; set; }
     public string Status { get; set; }
     
-    //Failure
-    public Guid FailureId { get; set; }
-    //deviceid
-    public string? FailureType { get; set; }
-    public string? FailureDescription { get; set; }
-    
     //MetrologyReport
     public Guid MetrologyReportId { get; set; }
     public Guid DeviceId { get; set; }
@@ -73,7 +67,4 @@ public sealed class CreateFullDeviceCommand : EntityBase, IRequest<FullDeviceDto
     public byte[] DocumentData { get; set; }
     public long DocumentSize { get; set; }    
     public DateTime UploadDate { get; set; }
-    
-    //Piece
-    public ICollection<PieceDto> PieceDtos { get; set; }
 }

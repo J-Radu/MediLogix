@@ -15,25 +15,27 @@ public class JwtService(IConfiguration configuration) : IJwtService
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"]));
         var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+        
+        var signingCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256)
+        {
+            CryptoProviderFactory = new CryptoProviderFactory { CacheSignatureProviders = false }
+        };
+        
         var expires = DateTime.Now.AddMinutes(Convert.ToDouble(configuration["JWT:ExpirationInMinutes"]));
 
-        var token = new JwtSecurityToken(
-            issuer: configuration["JWT:ValidIssuer"],
-            audience: configuration["JWT:ValidAudience"],
-            claims: claims,
-            expires: expires,
-            signingCredentials: credentials
-        );
-
-        var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
-        
-        // Verify the token can be read back immediately
-        if (!new JwtSecurityTokenHandler().CanReadToken(tokenString))
+        var tokenDescriptor = new SecurityTokenDescriptor
         {
-            throw new InvalidOperationException("Generated token cannot be read as JWT");
-        }
-        
-        return tokenString;
+            Subject = new ClaimsIdentity(claims),
+            Expires = expires,
+            SigningCredentials = signingCredentials,
+            Issuer = configuration["JWT:ValidIssuer"],
+            Audience = configuration["JWT:ValidAudience"]
+        };
+
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var token = tokenHandler.CreateToken(tokenDescriptor);
+
+        return tokenHandler.WriteToken(token);
     }
 
     public string GenerateRefreshToken()
