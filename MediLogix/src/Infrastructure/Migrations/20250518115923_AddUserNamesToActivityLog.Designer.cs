@@ -4,6 +4,7 @@ using MediLogix.Infrastructure.Persistence.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MediLogix.Infrastructure.Migrations
 {
     [DbContext(typeof(MediLogixDbContext))]
-    partial class MediLogixDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250518115923_AddUserNamesToActivityLog")]
+    partial class AddUserNamesToActivityLog
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -11,6 +11,12 @@ public class JwtService(IConfiguration configuration) : IJwtService
             new(ClaimTypes.Email, user.Email)
         };
         
+        if (user.Employee != null)
+        {
+            claims.Add(new Claim("FirstName", user.Employee.FirstName));
+            claims.Add(new Claim("LastName", user.Employee.LastName));
+        }
+        
         claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"]));
