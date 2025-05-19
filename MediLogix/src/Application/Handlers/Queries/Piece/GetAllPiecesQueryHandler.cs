@@ -17,6 +17,7 @@ public sealed class GetAllPiecesQueryHandler(IDbContextFactory<MediLogixDbContex
             Id = p.Id,
             Name = p.Name,
             Price = p.Price,
+            DeviceId = p.DeviceId,
             AcquisitionDate = p.AcquisitionDate
         }).ToList();
     }

@@ -2,7 +2,7 @@ namespace MediLogix.WebApi.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-[Authorize(Roles = "Admin,User")]
+[Authorize]
 public class PieceController(IMediator mediator) : ControllerBase
 {
     [HttpGet("{id:guid}")]
@@ -29,12 +29,12 @@ public class PieceController(IMediator mediator) : ControllerBase
     }
 
     [HttpPost]
-    [ProducesResponseType(typeof(Guid), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(PieceDto), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<Guid>> CreatePiece([FromBody] CreatePieceCommand command)
+    public async Task<ActionResult<PieceDto>> CreatePiece([FromBody] CreatePieceCommand command)
     {
         var result = await mediator.Send(command);
-        return CreatedAtAction(nameof(GetPieceById), new { id = result }, result);
+        return CreatedAtAction(nameof(GetPieceById), new { id = result.Id }, result);
     }
 
     [HttpPut("{id:guid}")]
