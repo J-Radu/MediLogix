@@ -2,7 +2,7 @@ namespace MediLogix.WebApi.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-[Authorize(Roles = "Admin,User")]
+[Authorize]
 public class FailureController(IMediator mediator) : ControllerBase
 {
     [HttpGet]
@@ -29,9 +29,9 @@ public class FailureController(IMediator mediator) : ControllerBase
     }
 
     [HttpPost]
-    [ProducesResponseType(typeof(Guid), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(FailureDto), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<Guid>> CreateFailure([FromBody] CreateFailureCommand command)
+    public async Task<ActionResult<FailureDto>> CreateFailure([FromBody] CreateFailureCommand command)
     {
         var result = await mediator.Send(command);
         return CreatedAtAction(nameof(GetFailureById), new { id = result }, result);

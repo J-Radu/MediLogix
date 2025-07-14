@@ -2,7 +2,7 @@ namespace MediLogix.WebApi.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-[Authorize(Roles = "Admin,User")]
+[Authorize]
 public class ActivityController(IMediator mediator) : ControllerBase
 {
     [HttpGet]
