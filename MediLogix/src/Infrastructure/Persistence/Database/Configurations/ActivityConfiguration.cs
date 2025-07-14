@@ -15,7 +15,7 @@ internal sealed class ActivityConfiguration : IEntityTypeConfiguration<Activity>
         builder
             .Property(e => e.EventName)
             .IsRequired()
-            .HasMaxLength(20);
+            .HasMaxLength(50);
         builder
             .Property(e => e.Notes)
             .HasMaxLength(100);
